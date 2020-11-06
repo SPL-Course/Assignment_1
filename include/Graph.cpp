@@ -1,6 +1,7 @@
 
 // Created by spl211 on 6/11/2020.
 #include "Graph.h"
+#include <fstream>
 using namespace std;
 // Need to build Operation Function
 
