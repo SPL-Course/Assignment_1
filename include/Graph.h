@@ -2,26 +2,25 @@
 #define GRAPH_H_
 #include <vector>
 #include <queue>
-using namespace std;
 
 // Copy Constructor (public)
-// Distructor (public)
+// Distractor (public)
 
 class Graph{
 public:
-    Graph(std::vector<std::vector<int>> matrix);
+    Graph(std::vector<std::vector<int>> matrix); // Constructor
 
-    void infectNode(int nodeInd); // adding to Q
-    bool isInfected(int nodeInd); // boolean (how we know?)
+    void infectNode(int nodeInd);
+    bool isInfected(int nodeInd);
 
-    vector<vector<int>> getEdges() const; // Getter for private field
-    static vector<int> getVertex(); // Getter for private field
-    static queue<int> getQueue();
+    const std::vector<std::vector<int>> getEdges();
+    const std::vector<int> getVertex();
+    const std::queue<int> getQueue();
 
 private:
     std::vector<std::vector<int>> edges;
-    static vector<int> vecs;
-    static queue<int> q ;
+    std::vector<int> vecs ;
+    std::queue<int> q ;
 };
 
 #endif
