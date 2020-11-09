@@ -35,21 +35,4 @@ bool isInfected(int nodeInd){ // boolean (how we know?)
 
 }
 
-int main() {
-    vector<vector<int>> matrix = {{0,1,0,0,1,0,0,0,0},{1,0,1,1,0,1,1,0,0},
-                                  {0,1,0,1,0,1,0,0,0},{0,1,1,0,0,1,0,0,0},
-                                  {1,0,0,0,0,1,0,0,0},{0,1,1,1,1,0,0,1,0},
-                                  {0,1,0,0,0,0,0,1,1},{0,0,0,0,0,1,1,0,0},
-                                  {0,0,0,0,0,0,1,0,0}};
 
-    Graph g(matrix);
-
-
-    for (int i = 0; i < g.getEdges().size(); ++i) {
-        for (int j = 0; j < g.getEdges()[i].size(); ++j) {
-        cout << g.getEdges()[i][j] << endl;
-    }
-
-    return 0;
-    }
-}
