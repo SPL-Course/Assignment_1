@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <queue>
+using namespace std;
 
 // Copy Constructor (public)
 // Distructor (public)
@@ -16,12 +17,13 @@ public:
     bool isInfected(int nodeInd); // boolean (how we know?)
 
     std::vector<std::vector<int>> getEdges() const; // Getter for private field
+    static std::vector<int> getVertex(); // Getter for private field
+    static std::queue<int> getQueue();
 
 private:
     std::vector<std::vector<int>> edges;
-protected:
-    std::queue<int> Q;
-    std::vector<int> vertices; // **Update in Git**
+    static vector<int> vecs;
+    static queue<int> q ;
 };
 
 #endif

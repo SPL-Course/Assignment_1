@@ -7,7 +7,8 @@
 
 using namespace std;
 
-Graph:: Graph(vector<vector<int>> matrix):edges() { // Constructor
+Graph:: Graph(vector<vector<int>> matrix): edges(), q(), vecs() { // Constructor
+
 
     for(vector<int> node : matrix) {
         vector<int> neighbors;
@@ -17,6 +18,7 @@ Graph:: Graph(vector<vector<int>> matrix):edges() { // Constructor
                 neighbors.push_back(counter);
             counter = counter + 1;
         }
+        vecs.push_back(0); // zero for non-infected
         edges.push_back(neighbors);
     }
 }
@@ -25,14 +27,21 @@ vector<vector<int>> Graph::getEdges() const{
    return edges;
 }
 
-void infectNode(int nodeInd){ // adding to Q
-
-
+vector<int> Graph::getVertex(){
+    return vecs;
 }
 
-bool isInfected(int nodeInd){ // boolean (how we know?)
+queue<int> Graph::getQueue(){
+    return q;
+}
 
+void infectNode(int nodeInd){
+   Graph::getQueue().push(nodeInd);
+   Graph::getVertex().at(nodeInd) = 1;
+}
 
+bool isInfected(int nodeInd){
+    return Graph::getVertex().at(nodeInd) == 1;
 }
 
 
