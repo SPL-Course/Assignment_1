@@ -1,6 +1,5 @@
 #ifndef GRAPH_H_
 #define GRAPH_H_
-
 #include <vector>
 #include <queue>
 using namespace std;
@@ -10,15 +9,14 @@ using namespace std;
 
 class Graph{
 public:
-
     Graph(std::vector<std::vector<int>> matrix);
 
     void infectNode(int nodeInd); // adding to Q
     bool isInfected(int nodeInd); // boolean (how we know?)
 
-    std::vector<std::vector<int>> getEdges() const; // Getter for private field
-    static std::vector<int> getVertex(); // Getter for private field
-    static std::queue<int> getQueue();
+    vector<vector<int>> getEdges() const; // Getter for private field
+    static vector<int> getVertex(); // Getter for private field
+    static queue<int> getQueue();
 
 private:
     std::vector<std::vector<int>> edges;
