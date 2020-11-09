@@ -33,9 +33,35 @@ const queue<int> Graph::getQueue(){
     return q;
 }
 
+queue<int> Graph::copyQ(){
+    queue<int> copyq;
+    if(!q.empty()){
+        int counter=q.size()-1;
+       while (counter>=0){
+           int temp=q.front();
+           q.pop();
+           copyq.push(temp);
+           q.push(temp);
+           counter--;
+       }
+        return copyq;
+    }
+}
+
+vector<int> Graph::copyVer(){
+
+    vector<int> copyv;
+
+    for (int i = 0; i < copyv.size(); ++i) {
+        copyv.push_back(vecs[i]);
+    }
+
+    return copyv;
+}
+
 void infectNode(int nodeInd){
-   //Graph::getQueue().push(nodeInd);
-   //Graph::getVertex().at(nodeInd) = 1;
+   Graph::copyQ().push(nodeInd);
+   Graph::getVertex().at(nodeInd) = 1;
 }
 
 bool isInfected(int nodeInd){

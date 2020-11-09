@@ -17,10 +17,15 @@ public:
     const std::vector<int> getVertex();
     const std::queue<int> getQueue();
 
+    static std::queue<int> copyQ();
+    static std::vector<int> copyVer();
+
 private:
     std::vector<std::vector<int>> edges;
+    std::queue<int> q;
     std::vector<int> vecs ;
-    std::queue<int> q ;
+    static std::queue<int> copyq;
+    static std::vector<int> copyv;
 };
 
 #endif
