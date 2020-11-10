@@ -21,47 +21,22 @@ Graph:: Graph(vector<vector<int>> matrix): edges(), vecs(), q() { // Constructor
     }
 }
 
-const vector<vector<int>> Graph::getEdges(){
+vector<vector<int>> Graph::getEdges() const {
    return edges;
 }
 
-const vector<int> Graph::getVertex(){
+vector<int> Graph::getVertex() const {
     return vecs;
 }
 
-const queue<int> Graph::getQueue(){
+queue<int> Graph::getQueue() const {
     return q;
 }
 
-queue<int> Graph::copyQ(){
-    queue<int> copyq;
-    if(!q.empty()){
-        int counter=q.size()-1;
-       while (counter>=0){
-           int temp=q.front();
-           q.pop();
-           copyq.push(temp);
-           q.push(temp);
-           counter--;
-       }
-        return copyq;
-    }
-}
-
-vector<int> Graph::copyVer(){
-
-    vector<int> copyv;
-
-    for (int i = 0; i < copyv.size(); ++i) {
-        copyv.push_back(vecs[i]);
-    }
-
-    return copyv;
-}
 
 void infectNode(int nodeInd){
-   Graph::copyQ().push(nodeInd);
-   Graph::getVertex().at(nodeInd) = 1;
+   //Graph::copyQ().push(nodeInd);
+   //Graph::getVertex().at(nodeInd) = 1;
 }
 
 bool isInfected(int nodeInd){

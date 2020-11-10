@@ -15,13 +15,13 @@ public:
     //bool isInfected(int nodeInd); // boolean (how we know?)
 
     vector<vector<int>> getEdges() const; // Getter for private field
-    static vector<int> getVertex(); // Getter for private field
-    static queue<int> getQueue();
+    vector<int> getVertex()const; // Getter for private field
+    queue<int> getQueue() const;
 
 private:
     std::vector<std::vector<int>> edges;
-    static vector<int> vecs;
-    static queue<int> q ;
+    vector<int> vecs;
+    queue<int> q ;
 };
 
 #endif

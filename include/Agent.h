@@ -3,35 +3,32 @@
 
 #include <vector>
 
-class Agent{
+class Session;
 
-/* Note in site - 2 options */
+class Agent{
 
 public:
     
-    Agent(Session& session);   // Prepare next Agent - depends on our Session    
-    virtual void act()=0;      // Prepare Next & act of V / CT
-
-private:
-    Session &session;          // Reference to our Session
-}
+    Agent();   // Prepare next Agent - depends on our Session
+    virtual void act(Session& session)=0;      // Prepare Next & act of V / CT
+};
 
 class ContactTracer: public Agent{
 public:
-    ContactTracer(Session& session);      // new Contact 
+    ContactTracer();      // new Contact
     
-    virtual void act();                   // Node disconnect 
-}
+    virtual void act(Session& session);                   // Node disconnect
+};
 
 
 class Virus: public Agent{
 public:
-    Virus(int nodeInd, Session& session); // new Virus (act from him)
+    Virus(int nodeInd); // new Virus (act from him)
     
-    virtual void act();                   // Infect other Node 
+    virtual void act(Session& session);                   // Infect other Node
 
 private:
     const int nodeInd;                    // Where is the virus
-}
+};
 
 #endif
