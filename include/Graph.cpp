@@ -4,11 +4,9 @@
 
 #include "Graph.h"
 #include <iostream>
-
 using namespace std;
 
-Graph:: Graph(vector<vector<int>> matrix): edges() /*, q(), vecs()*/ { // Constructor
-
+Graph:: Graph(vector<vector<int>> matrix): edges(), vecs(), q() { // Constructor
 
     for(vector<int> node : matrix) {
         vector<int> neighbors;
@@ -23,25 +21,51 @@ Graph:: Graph(vector<vector<int>> matrix): edges() /*, q(), vecs()*/ { // Constr
     }
 }
 
-vector<vector<int>> Graph::getEdges() const{
+const vector<vector<int>> Graph::getEdges(){
    return edges;
 }
 
-vector<int> Graph::getVertex(){
+const vector<int> Graph::getVertex(){
     return vecs;
 }
 
-queue<int> Graph::getQueue(){
+const queue<int> Graph::getQueue(){
     return q;
 }
 
-//void infectNode(int nodeInd){
-   //Graph::getQueue().push(nodeInd);
-   //Graph::getVertex().at(nodeInd) = 1;
-//}
+queue<int> Graph::copyQ(){
+    queue<int> copyq;
+    if(!q.empty()){
+        int counter=q.size()-1;
+       while (counter>=0){
+           int temp=q.front();
+           q.pop();
+           copyq.push(temp);
+           q.push(temp);
+           counter--;
+       }
+        return copyq;
+    }
+}
 
-//bool isInfected(int nodeInd){
+vector<int> Graph::copyVer(){
+
+    vector<int> copyv;
+
+    for (int i = 0; i < copyv.size(); ++i) {
+        copyv.push_back(vecs[i]);
+    }
+
+    return copyv;
+}
+
+void infectNode(int nodeInd){
+   Graph::copyQ().push(nodeInd);
+   Graph::getVertex().at(nodeInd) = 1;
+}
+
+bool isInfected(int nodeInd){
     //return Graph::getVertex().at(nodeInd) == 1;
-//}
+}
 
 
