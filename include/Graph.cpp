@@ -7,7 +7,7 @@
 
 using namespace std;
 
-Graph:: Graph(vector<vector<int>> matrix): edges(), q(), vecs() { // Constructor
+Graph:: Graph(vector<vector<int>> matrix): edges() /*, q(), vecs()*/ { // Constructor
 
 
     for(vector<int> node : matrix) {
@@ -35,13 +35,13 @@ queue<int> Graph::getQueue(){
     return q;
 }
 
-void infectNode(int nodeInd){
-   Graph::getQueue().push(nodeInd);
-   Graph::getVertex().at(nodeInd) = 1;
-}
+//void infectNode(int nodeInd){
+   //Graph::getQueue().push(nodeInd);
+   //Graph::getVertex().at(nodeInd) = 1;
+//}
 
-bool isInfected(int nodeInd){
-    return Graph::getVertex().at(nodeInd) == 1;
-}
+//bool isInfected(int nodeInd){
+    //return Graph::getVertex().at(nodeInd) == 1;
+//}
 
 

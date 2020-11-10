@@ -32,11 +32,11 @@ int main(int argc, char** argv) {
     Graph g(matrix);
 
 
-    for (int i = 0; i < g.getEdges().size(); ++i) {
-        for (int j = 0; j < g.getEdges()[i].size(); ++j) {
+    for (vector<int>::size_type i = 0; i < g.getEdges().size(); ++i) {
+        for (vector<int>::size_type j = 0; j < g.getEdges()[i].size(); ++j) {
             cout << g.getEdges()[i][j];
         }
-        cout << endl;
+        cout << "" << endl;
     }
     return 0;
 }
