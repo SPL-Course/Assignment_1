@@ -31,10 +31,11 @@ int main(int argc, char** argv) {
 
     Graph g(matrix);
 
-//    for (vector<int>::size_type i = 0; i < g.getEdges().size(); ++i) {
-//        for (vector<int>::size_type j = 0; j < g.getEdges()[i].size(); ++j) {
-//            cout << g.getEdges()[i][j];
-//        }
+    for (vector<int>::size_type i = 0; i < g.getEdges().size(); ++i) {
+        for (vector<int>::size_type j = 0; j < g.getEdges()[i].size(); ++j) {
+            cout << g.getEdges()[i][j];
+        }
+    }
         cout << "" << endl;
 
        g.infectNode(0);
@@ -45,18 +46,42 @@ int main(int argc, char** argv) {
        cout << "" << endl;
        g.infectNode(5);
        cout << "" << endl;
+//
+//       while(!g.getQueue().empty()) {
+//
+//           cout << " " << g.getQueue().front() << " ";
+//           g.getQueue().pop();
+//           cout << "" << endl;
+//       }
 
-       while(!g.getQueue().empty()) {
+//       for (vector<int>::size_type j = 0; j < g.getVertex().size(); ++j){
+//            //cout << g.getVertex()[j] << endl;
+//            cout << g.isInfected(j) << " ";
+//       }
 
-           cout << " " << g.getQueue().front() << " ";
-           g.getQueue().pop();
-           cout << "" << endl;
-       }
+    Graph g2(g);
+    cout<<endl;
 
-       for (vector<int>::size_type j = 0; j < g.getVertex().size(); ++j){
-            //cout << g.getVertex()[j] << endl;
-            cout << g.isInfected(j) << " ";
-       }
+        for (vector<int>::size_type i = 0; i < g2.getEdges().size(); ++i) {
+            for (vector<int>::size_type j = 0; j < g2.getEdges()[i].size(); ++j) {
+                cout << g2.getEdges()[i][j];
+            }
+        }
+
+//    for (vector<int>::size_type j = 0; j < g2.getVertex().size(); ++j){
+//
+//        //cout << g.getVertex()[j] << endl;
+//        cout << g2.isInfected(j) << " ";
+//    }
+//    cout << "" << endl;
+//
+//    while(!g2.getQueue().empty()) {
+//
+//        cout << " " << g2.getQueue().front() << " ";
+//        g2.getQueue().pop();
+//        cout << "" << endl;
+//    }
+
 
 
     return 0;

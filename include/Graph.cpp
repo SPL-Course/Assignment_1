@@ -44,7 +44,7 @@ Graph & Graph::operator=(Graph &other) {
 
 Graph::Graph(Graph &other) {
 
-    this->operator=(other);
+    *this = other;
 }
 
 Graph::~Graph() { }
