@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include "Graph.h"
+using namespace std;
 
 class Agent;
 
@@ -25,7 +26,7 @@ public:
     int dequeueInfected();               // Need to build Q (Standard C++)
     
     TreeType getTreeType() const;        // from input (json-?)
-    
+    vector<Agent*> getAgents();
 private:
     Graph g;                             // from string & can change status
     TreeType treeType;
