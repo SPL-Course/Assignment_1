@@ -31,12 +31,33 @@ int main(int argc, char** argv) {
 
     Graph g(matrix);
 
-
-    for (vector<int>::size_type i = 0; i < g.getEdges().size(); ++i) {
-        for (vector<int>::size_type j = 0; j < g.getEdges()[i].size(); ++j) {
-            cout << g.getEdges()[i][j];
-        }
+//    for (vector<int>::size_type i = 0; i < g.getEdges().size(); ++i) {
+//        for (vector<int>::size_type j = 0; j < g.getEdges()[i].size(); ++j) {
+//            cout << g.getEdges()[i][j];
+//        }
         cout << "" << endl;
-    }
+
+       g.infectNode(0);
+       cout << "" << endl;
+       g.infectNode(1);
+       cout << "" << endl;
+       g.infectNode(4);
+       cout << "" << endl;
+       g.infectNode(5);
+       cout << "" << endl;
+
+       while(!g.getQueue().empty()) {
+
+           cout << " " << g.getQueue().front() << " ";
+           g.getQueue().pop();
+           cout << "" << endl;
+       }
+
+       for (vector<int>::size_type j = 0; j < g.getVertex().size(); ++j){
+            //cout << g.getVertex()[j] << endl;
+            cout << g.isInfected(j) << " ";
+       }
+
+
     return 0;
 }

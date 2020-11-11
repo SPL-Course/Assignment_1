@@ -21,26 +21,45 @@ Graph:: Graph(vector<vector<int>> matrix): edges(), vecs(), q() { // Constructor
     }
 }
 
-vector<vector<int>> Graph::getEdges() const {
+vector<vector<int>> &Graph::getEdges() {
    return edges;
 }
 
-vector<int> Graph::getVertex() const {
+vector<int> &Graph::getVertex() {
     return vecs;
 }
 
-queue<int> Graph::getQueue() const {
+queue<int> &Graph::getQueue() {
     return q;
 }
 
+Graph Graph::clone(Graph &other) {
 
-void infectNode(int nodeInd){
-   //Graph::copyQ().push(nodeInd);
-   //Graph::getVertex().at(nodeInd) = 1;
 }
 
-bool isInfected(int nodeInd){
-    //return Graph::getVertex().at(nodeInd) == 1;
+void Graph::infectNode(int nodeInd) {
+
+    if(!q.empty()) {
+
+        int x = q.back();
+        cout << " toUse: " << getQueue().back() << " " ;
+        cout << "toUse before: " << (vecs[x]) << " ";;
+        vecs[x]++;
+        cout << "toUse after: " << (vecs[x]) << " ";;
+    }
+
+    q.push(nodeInd);
+    cout << " toPush: " << getQueue().back() << " ";
+    cout << " toPush before: " << (vecs[nodeInd]) << " ";
+    vecs[nodeInd]++;
+    cout << " toPush after: " << (vecs[nodeInd]) << " ";
+
+
 }
+
+bool Graph::isInfected(int nodeInd) {
+    return vecs[nodeInd] != 0;
+}
+
 
 

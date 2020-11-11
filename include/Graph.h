@@ -2,6 +2,7 @@
 #define GRAPH_H_
 #include <vector>
 #include <queue>
+
 using namespace std;
 
 // Copy Constructor (public)
@@ -10,13 +11,13 @@ using namespace std;
 class Graph{
 public:
     Graph(std::vector<std::vector<int>> matrix);
+    void infectNode(int nodeInd); // adding to Q
+    bool isInfected(int nodeInd); // boolean (how we know?)
 
-    //void infectNode(int nodeInd); // adding to Q
-    //bool isInfected(int nodeInd); // boolean (how we know?)
-
-    vector<vector<int>> getEdges() const; // Getter for private field
-    vector<int> getVertex()const; // Getter for private field
-    queue<int> getQueue() const;
+    vector<vector<int>> &getEdges() ;
+    vector<int> &getVertex();
+    queue<int> &getQueue() ;
+    Graph clone(Graph &other);
 
 private:
     std::vector<std::vector<int>> edges;

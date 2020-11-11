@@ -6,6 +6,9 @@
 class Session;
 
 class Tree{
+
+/* When infect - notice to do last one rotation (1-->2) */
+
 public:
     Tree(int rootLabel);              // Constructor (root)
     void addChild(const Tree& child); // Add node to Tree
@@ -16,7 +19,7 @@ public:
 private:
     int node;                         // Tree root
     std::vector<Tree*> children;      // Pointer's vector to children
-}
+};
 
 class CycleTree: public Tree{
 public:
@@ -25,7 +28,7 @@ public:
 
 private:
     int currCycle;                    // How many steps to take
-}
+};
 
 class MaxRankTree: public Tree{
 
@@ -37,7 +40,7 @@ class MaxRankTree: public Tree{
 public:
     MaxRankTree(int rootLabel);   
     virtual int traceTree();
-}
+};
 
 class RootTree: public Tree{     
 
@@ -46,6 +49,6 @@ class RootTree: public Tree{
 public:
     RootTree(int rootLabel); 
     virtual int traceTree();  
-}
+};
 
 #endif
