@@ -1,12 +1,11 @@
 
-// Last edited on 9/11/2020
-// Need to build Operation Function
+// Last edited on 11/11/2020
 
 #include "Graph.h"
 #include <iostream>
 using namespace std;
 
-Graph:: Graph(vector<vector<int>> matrix): edges(), vecs(), q() { // Constructor
+Graph:: Graph(vector<vector<int>> matrix): edges(), vecs(), q() {  // Constructor
 
     for(vector<int> node : matrix) {
         vector<int> neighbors;
@@ -16,26 +15,39 @@ Graph:: Graph(vector<vector<int>> matrix): edges(), vecs(), q() { // Constructor
                 neighbors.push_back(counter);
             counter = counter + 1;
         }
-        vecs.push_back(0); // zero for non-infected
+        vecs.push_back(0);                // non-infected
         edges.push_back(neighbors);
     }
 }
 
-vector<vector<int>> &Graph::getEdges() {
+vector<vector<int>> &Graph::getEdges() {  // 'edges' field getter
+
    return edges;
 }
 
-vector<int> &Graph::getVertex() {
+vector<int> &Graph::getVertex() {         // 'vecs' field getter
+
     return vecs;
 }
 
-queue<int> &Graph::getQueue() {
+queue<int> &Graph::getQueue() {           // 'q' field getter
+
     return q;
 }
 
-Graph Graph::clone(Graph &other) {
+Graph & Graph::operator=(Graph &other) {
 
+    this->edges = other.edges;
+    this->vecs = other.vecs;
+    this->q = other.q;
 }
+
+Graph::Graph(Graph &other) {
+
+    this->operator=(other);
+}
+
+Graph::~Graph() { }
 
 void Graph::infectNode(int nodeInd) {
 
@@ -54,10 +66,10 @@ void Graph::infectNode(int nodeInd) {
     vecs[nodeInd]++;
     cout << " toPush after: " << (vecs[nodeInd]) << " ";
 
-
 }
 
 bool Graph::isInfected(int nodeInd) {
+
     return vecs[nodeInd] != 0;
 }
 
