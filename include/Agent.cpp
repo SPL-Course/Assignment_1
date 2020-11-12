@@ -21,8 +21,8 @@ void Agent::act(Session &session) {
          c2.act(session);
     }
 
-    //else
-        //Virus v2= Virus(*session.);
+//    else
+//        Virus v2= Virus(*session);
 
 }
 
