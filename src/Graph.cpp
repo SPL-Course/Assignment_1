@@ -1,7 +1,7 @@
 
 // Last edited on 11/11/2020
 
-#include "Graph.h"
+#include "../include/Graph.h"
 #include <iostream>
 using namespace std;
 

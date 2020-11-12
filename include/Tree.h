@@ -12,6 +12,7 @@ class Tree{
 public:
     Tree(int rootLabel);              // Constructor (root)
     void addChild(const Tree& child); // Add node to Tree
+    virtual ~Tree(); // Added - 12/11/20
 
 
     static Tree* createTree(const Session& session, int rootLabel); // returns a pointer to Tree
