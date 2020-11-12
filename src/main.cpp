@@ -17,6 +17,9 @@ int main(int argc, char** argv) {
     //Session sess(argv[1]);
     //sess.simulate();
 
+    cout << argc;
+    cout << argv[1];
+
     vector<vector<int>> matrix = {{0, 1, 0, 0, 1, 0, 0, 0, 0},
                                   {1, 0, 1, 1, 0, 1, 1, 0, 0},
                                   {0, 1, 0, 1, 0, 1, 0, 0, 0},
