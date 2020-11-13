@@ -10,6 +10,7 @@ Agent::Agent(){}
 //         Virus(0);                //check Virus first value get
 //}
 
+
 void Agent::act(Session &session) {}
 //    vector<Agent*> a= session.getAgents();
 //    Agent *first=a.front();
