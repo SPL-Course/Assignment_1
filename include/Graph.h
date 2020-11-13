@@ -1,8 +1,8 @@
 
-// Last edited on 11/11/2020
 
 #ifndef GRAPH_H_
 #define GRAPH_H_
+
 #include <vector>
 #include <queue>
 using namespace std;
