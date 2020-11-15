@@ -85,8 +85,17 @@ int main(int argc, char** argv) {
 //    }
 
 
-    Virus v(0); Virus v2(v);
-    cout << v.getNodeInd() << " " << v2.getNodeInd() << endl;
+//
+//    Virus v(0); Virus v2(v);
+//    cout << v.getNodeInd() << " " << v2.getNodeInd() << endl;
+
+    //ContactTracer c1=ContactTracer();
+    //ContactTracer c2=c1;
+
+    //Virus* v = new Virus(5);
+    //Virus v2 (5);
+    //Virus v1 = v2;
+
     //Session session();
     return 0;
 }

@@ -20,6 +20,7 @@ public:
     Graph(Graph &other);             // Copy constructor
     Graph& operator=(Graph &other);  // Assignment operator
     virtual ~Graph();                // Destructor
+    void clear();
 
 private:
     std::vector<std::vector<int>> edges;

@@ -33,7 +33,7 @@ queue<int> &Graph::getQueue() {           // 'q' field getter
     return q;
 }
 
-Graph & Graph::operator=(Graph &other) {
+Graph &Graph::operator=(Graph &other) {
 
     this->edges = other.edges;
     this->vecs = other.vecs;
@@ -42,10 +42,21 @@ Graph & Graph::operator=(Graph &other) {
 
 Graph::Graph(Graph &other) {
 
-    *this = other;
+    this->operator=(other);
 }
 
-Graph::~Graph() { }
+Graph::~Graph() { clear(); }
+
+void Graph::clear() {
+
+    if (this){
+        for (int i = 0; i < vecs.size(); ++i) {
+            delete(&vecs[i]);
+            int *p = &vecs[i];
+            p = nullptr;
+        }
+    }
+}
 
 void Graph::infectNode(int nodeInd) {
 
