@@ -12,11 +12,14 @@ class Tree{
 public:
     Tree(int rootLabel);              // Constructor (root)
     void addChild(const Tree& child); // Add node to Tree
+    void addChild(Tree &&child);
     virtual ~Tree();                  // Added - 12/11/20
-
+    Tree(Tree &other);
+    virtual Tree* clone() const=0;
 
     static Tree* createTree(const Session& session, int rootLabel); // returns a pointer to Tree
     virtual int traceTree()=0;        // Which node to disconnect?
+
 private:
     int node;                         // Tree root
     std::vector<Tree*> children;      // Pointer's vector to children
@@ -26,6 +29,7 @@ class CycleTree: public Tree{
 public:
     CycleTree(int rootLabel, int currCycle);
     virtual int traceTree();
+    virtual Tree* clone() const;
 
 private:
     int currCycle;                    // How many steps to take
@@ -41,6 +45,7 @@ class MaxRankTree: public Tree{
 public:
     MaxRankTree(int rootLabel);   
     virtual int traceTree();
+    virtual Tree* clone() const;
 };
 
 class RootTree: public Tree{     
@@ -49,7 +54,8 @@ class RootTree: public Tree{
 
 public:
     RootTree(int rootLabel); 
-    virtual int traceTree();  
+    virtual int traceTree();
+    virtual Tree* clone() const;
 };
 
 #endif
