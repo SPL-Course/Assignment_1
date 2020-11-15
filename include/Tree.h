@@ -25,6 +25,7 @@ private:
     std::vector<Tree*> children;      // Pointer's vector to children
 };
 
+
 class CycleTree: public Tree{
 public:
     CycleTree(int rootLabel, int currCycle);
