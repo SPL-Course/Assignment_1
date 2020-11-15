@@ -9,6 +9,10 @@ vector<Agent *> Session::getAgents() {
     return agents;
 }
 
+Graph* Session::getGraph() {
+    return &g;
+}
+
 Session::Session(const std::string& path): g(vector<vector<int>>()),treeType(), agents(vector<Agent*>()){
 
     std::ifstream i("config1.json");

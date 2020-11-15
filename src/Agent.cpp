@@ -3,24 +3,25 @@
 #include <iostream>
 using namespace std;
 
-Agent::Agent(): point(nullptr){}
+Agent::Agent(): pAgent(nullptr){}
 
-void Agent::act(Session &session) {}
-//    vector<Agent*> a= session.getAgents();
-//    Agent *first=a.front();
-//    if((*first).agentType == 'c') {
-//         ContactTracer c2= ContactTracer();
-//         c2.act(session);
-//    }
-//    else
-//        Virus v2= Virus(*session);
-//}
 
 /*----------Virus------------*/
-Virus::Virus(int nodeInd) : Agent(), nodeInd(nodeInd), v(this) {}
-Virus::~Virus() { clear(); }
-Virus::Virus(Virus const &other): Agent(), nodeInd(other.nodeInd) { clone();}
-Virus & Virus::operator=(Virus other) { this->other; }
+
+Virus::Virus(int nodeInd) : Agent(), nodeInd(nodeInd), pV(this) {}
+
+Virus::~Virus() {
+    clear();
+}
+
+Virus::Virus(Virus const &other): Agent(), nodeInd(other.nodeInd) {
+    clone();
+}
+
+Virus & Virus::operator=(Virus other) {
+    this->other;
+}
+
 Virus & Virus::operator=(Virus &&other){
     if(this!=&other){
         clear();
@@ -31,7 +32,7 @@ Virus & Virus::operator=(Virus &&other){
 
 Virus::Virus(Virus &&other): nodeInd(other.nodeInd) {
     this->other;
-    other.point;
+    other.pAgent;
 }
 
 Agent * Virus::clone() const {
@@ -40,24 +41,38 @@ Agent * Virus::clone() const {
 
 void Virus::clear() {
        delete(this);
-       this->point;
+       this->pAgent;
 }
 
-int Virus::getNodeInd() const { return nodeInd; }
-void Virus::act(Session &session) {}
+int Virus::getNodeInd() const {
+    return nodeInd;
+}
+
+void Virus::act(Session &session) {
+    Graph *gPoint = session.getGraph();
+    gPoint->infectNode(nodeInd); // prepare next insure
+    delete (gPoint);
+}
 
 /*------Contact Tracer--------*/
 
-ContactTracer::ContactTracer() : Agent(), c(this) {}
-ContactTracer::ContactTracer(ContactTracer const &other): Agent() { clone(); }
-ContactTracer::~ContactTracer() { clear(); }
+ContactTracer::ContactTracer() : Agent(), pCT(this) {}
 
+ContactTracer::ContactTracer(ContactTracer const &other): Agent() {
+    clone();
+}
 
-ContactTracer & ContactTracer::operator=(ContactTracer other) { this->other;}
+ContactTracer::~ContactTracer() {
+    clear();
+}
+
+ContactTracer & ContactTracer::operator=(ContactTracer other) {
+    this->other;
+}
 
 ContactTracer::ContactTracer(ContactTracer &&other) {
     this->other;
-    other.point;
+    other.pAgent;
 }
 
 ContactTracer & ContactTracer::operator=(ContactTracer &&other) {
@@ -74,7 +89,12 @@ Agent * ContactTracer::clone() const{
 
 void ContactTracer::clear() {
         delete (this);
-        this->point;
+        this->pAgent;
 }
 
-void ContactTracer::act(Session &session) {}
+void ContactTracer::act(Session &session) {
+    Graph *g=session.getGraph();
+    int *pQueue = &g->getQueue().back();
+    g->removeEdgeFromGraph(*pQueue);
+    delete (pQueue);
+}

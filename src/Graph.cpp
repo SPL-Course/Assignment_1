@@ -4,7 +4,6 @@
 using namespace std;
 
 Graph:: Graph(vector<vector<int>> matrix): edges(), vecs(), q() {  // Constructor
-
     for(vector<int> node : matrix) {
         vector<int> neighbors;
         int counter = 0;
@@ -13,73 +12,57 @@ Graph:: Graph(vector<vector<int>> matrix): edges(), vecs(), q() {  // Constructo
                 neighbors.push_back(counter);
             counter = counter + 1;
         }
-        vecs.push_back(0);                // non-infected
+        vecs.push_back(0);                                      // non-infected
         edges.push_back(neighbors);
     }
 }
 
-vector<vector<int>> &Graph::getEdges() {  // 'edges' field getter
-
+vector<vector<int>> &Graph::getEdges() {                    // 'edges' field getter
    return edges;
 }
 
-vector<int> &Graph::getVertex() {         // 'vecs' field getter
-
+vector<int> &Graph::getVertex() {                         // 'vecs' field getter
     return vecs;
 }
 
-queue<int> &Graph::getQueue() {           // 'q' field getter
-
+queue<int> &Graph::getQueue() {                         // 'q' field getter
     return q;
 }
 
 Graph &Graph::operator=(Graph &other) {
-
     this->edges = other.edges;
     this->vecs = other.vecs;
     this->q = other.q;
 }
 
 Graph::Graph(Graph &other) {
-
     this->operator=(other);
 }
 
-Graph::~Graph() { clear(); }
+Graph::~Graph() {
+    clear();
+}
 
 void Graph::clear() {
-
-    if (this){
-        for (int i = 0; i < vecs.size(); ++i) {
-            delete(&vecs[i]);
-            int *p = &vecs[i];
-            p = nullptr;
-        }
-    }
+    if (this!= nullptr)
+        delete(this);
 }
 
 void Graph::infectNode(int nodeInd) {
-
     if(!q.empty()) {
-
         int x = q.back();
-        cout << " toUse: " << getQueue().back() << " " ;
-        cout << "toUse before: " << (vecs[x]) << " ";;
         vecs[x]++;
-        cout << "toUse after: " << (vecs[x]) << " ";;
     }
-
     q.push(nodeInd);
-    cout << " toPush: " << getQueue().back() << " ";
-    cout << " toPush before: " << (vecs[nodeInd]) << " ";
     vecs[nodeInd]++;
-    cout << " toPush after: " << (vecs[nodeInd]) << " ";
-
 }
 
 bool Graph::isInfected(int nodeInd) {
-
     return vecs[nodeInd] != 0;
+}
+
+void Graph::removeEdgeFromGraph(int &node) {
+    edges[node].clear();
 }
 
 

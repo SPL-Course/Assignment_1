@@ -4,20 +4,16 @@
 
 #include <vector>
 #include <queue>
-#include "Session.h"
+#include "Session.h"                            //check if ok
 using namespace std;
 
-//class Session;   //next week prepare real session!(Allel's fault)
-
-class Agent{                                     //add getType function for virus/contact tracer
+class Agent{
 public:
-    Agent();                                     // Prepare next Agent - depends on our Session
-    virtual void act(Session& session)=0;        // Prepare Next & act of V / CT
+    Agent();
+    virtual void act(Session& session)=0;
 
 protected:
-    Agent* point;
-    char agentType;                              //check if its contact tracer or virus
-    int agentIndex;                              // give the value for the first sick node
+    Agent* pAgent;
 };
 
 class ContactTracer: public Agent{
@@ -35,8 +31,8 @@ public:
     virtual void act(Session& session);                 // Node disconnect
 
 protected:
-    ContactTracer *c;
-    ContactTracer *other;
+    ContactTracer *pCT;
+    ContactTracer *other;                           //check all other's
 };
 
 class Virus: public Agent{
@@ -51,14 +47,15 @@ public:
     void clear();
     int getNodeInd() const;
     virtual Agent* clone() const;
-    virtual void act(Session& session);          // Infect other Node
+
+    virtual void act(Session& session);          // Infect node
 
 protected:
-    Virus const *v;
+    Virus const *pV;
     Virus *other;
 
 private:
-    const int nodeInd;                           // Where is the virus
+    const int nodeInd;
 
 };
 

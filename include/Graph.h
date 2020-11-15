@@ -22,6 +22,8 @@ public:
     virtual ~Graph();                // Destructor
     void clear();
 
+    void removeEdgeFromGraph(int &node);
+
 private:
     std::vector<std::vector<int>> edges;
     vector<int> vecs;

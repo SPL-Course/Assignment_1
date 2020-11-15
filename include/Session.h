@@ -32,6 +32,8 @@ public:
     
     TreeType getTreeType() const;        // from input (json-?)
     vector<Agent*> getAgents();
+    Graph* getGraph();
+
 private:
     Graph g;                             // from string & can change status
     TreeType treeType;
