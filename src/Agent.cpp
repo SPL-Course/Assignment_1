@@ -38,4 +38,33 @@ void Virus::act(Session &session) {}
 /*------Contact Tracer--------*/
 
 ContactTracer::ContactTracer() : Agent() {}
+
+ContactTracer::~ContactTracer() {}
+
+ContactTracer::ContactTracer(ContactTracer &other) {
+    *this=other;
+}
+
+ContactTracer & ContactTracer::operator=(ContactTracer other) {
+    this->other;
+}
+
+ContactTracer::ContactTracer(ContactTracer &&other) {           //point? how to put nullptr in &&other
+    this->other;
+    other.point;
+}
+
+ContactTracer & ContactTracer::operator=(ContactTracer &&other) {
+    if(this!=&other){                           //how to solve "=" pb?
+        clear();
+        ContactTracer(other);
+    }
+    return *this;
+}
+
+ContactTracer ContactTracer::clear() {              //is this good to clear this?
+    delete(this);
+    this->point;
+}
+
 void ContactTracer::act(Session &session) {}

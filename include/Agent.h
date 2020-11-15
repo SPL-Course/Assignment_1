@@ -20,8 +20,23 @@ protected:
 
 class ContactTracer: public Agent{
 public:
-    ContactTracer();                             // new Contact
-    virtual void act(Session& session);          // Node disconnect
+    ContactTracer();                                           //constructor
+    ~ContactTracer();                                         //destructor
+    ContactTracer(ContactTracer &other);                     //copy constructor
+    ContactTracer &operator=(ContactTracer other);          //copy assignment operator
+    ContactTracer(ContactTracer &&other);                  //move constructor
+    ContactTracer& operator=(ContactTracer &&other);      //move assignment operator
+    ContactTracer clear();                               //clean "this" so we can put "other" in it
+    virtual void act(Session& session);                 // Node disconnect
+
+
+protected:
+    ContactTracer *c;
+    ContactTracer *other;
+    ContactTracer *point;
+};
+
+virtual void act(Session& session);          // Node disconnect
 };
 
 
