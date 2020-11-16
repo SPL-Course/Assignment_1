@@ -3,7 +3,7 @@
 #define TREE_H_
 
 #include <vector>
-class Session;
+#include "Session.h" // added 16.11 18:00
 
 class Tree{
 
@@ -21,16 +21,22 @@ public:
     virtual int traceTree()=0;        // Which node to disconnect?
     int getNode() const;
 
+    void BFS(Session& s, Tree *root);
+
 private:
     int node;                         // Tree root
     std::vector<Tree*> children;      // Pointer's vector to children
+
+protected:
+    bool visited;
 };
 
 
 class CycleTree: public Tree{
 public:
     CycleTree(int rootLabel, int currCycle);
-    virtual int traceTree();
+    virtual int traceTree(); // if 0 - root, else go-left currCycle times
+
     virtual Tree* clone() const ;
 
 private:
@@ -41,12 +47,12 @@ class MaxRankTree: public Tree{
 
 /* Next-Node is: 
     1. Most Children 
-    2. Deepest 
+    2. Smallest depth
     3. Most-Left */
 
 public:
     MaxRankTree(int rootLabel);   
-    virtual int traceTree();
+    virtual int traceTree(); // in loop updating Tree *max
     virtual Tree* clone() const ;
 };
 
@@ -56,7 +62,7 @@ class RootTree: public Tree{
 
 public:
     RootTree(int rootLabel); 
-    virtual int traceTree();
+    virtual int traceTree();  // return relevant tree's getNode();
     virtual Tree* clone() const;
 };
 

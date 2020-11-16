@@ -1,12 +1,11 @@
 
 #include "../include/Tree.h"
-#include "../include/Session.h"                 //we added, need to check if its ok
 #include <iostream>
 using namespace std;
 
 //==========================Tree=========================
 
-Tree::Tree(int rootLabel): node(rootLabel), children(){}
+Tree::Tree(int rootLabel): node(rootLabel), children(), visited(false){}
 
 Tree::~Tree() {
     if(this){
@@ -15,6 +14,25 @@ Tree::~Tree() {
         delete(this);
     }
 }
+
+void Tree::BFS(Session& s , Tree *root) {
+    Graph *g=s.getGraph();
+    queue<Tree*> nodes;
+    nodes.push(root);                               //root is the adress of the root, meaning the adress of node
+    while (!nodes.empty()){
+        Tree* temp=nodes.front();
+        nodes.pop();
+        for (int j = 0; j <g->getEdges().size(); ++j) {
+            Tree* child=createTree(s,temp->node);
+            if(child->visited) {
+                temp->addChild(*child);
+                nodes.push(child);
+            }
+        }
+    }
+}
+
+
 
 Tree * Tree::createTree(const Session &session, int rootLabel){
     TreeType tType=session.getTreeType();
