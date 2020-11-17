@@ -42,6 +42,7 @@ Session::Session(const std::string& path): g(vector<vector<int>>()),treeType(), 
 }
 
 
+
 TreeType Session::getTreeType() const {
     return treeType;
 }
