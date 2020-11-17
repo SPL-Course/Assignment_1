@@ -26,7 +26,7 @@ Tree * Tree::createTree(const Session &session, int rootLabel){
 }
 
 Tree::Tree(Tree &other) {
-    clone();
+    other.clone();
 }
 
 void Tree::addChild(const Tree &child) {
@@ -125,4 +125,3 @@ int MaxRankTree::traceTree() {
 //
 //
 //    return output;
-}

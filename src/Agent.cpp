@@ -1,5 +1,6 @@
 
 #include "../include/Agent.h"
+#include "../include/Tree.h"    //added
 #include <iostream>
 using namespace std;
 
@@ -49,9 +50,13 @@ int Virus::getNodeInd() const {
 }
 
 void Virus::act(Session &session) {
-    Graph *gPoint = session.getGraph();
-    gPoint->infectNode(nodeInd); // prepare next insure
-    delete (gPoint);
+    Graph *g = session.getGraph();
+    Tree *root=Tree::createTree(session,nodeInd);     //fix root
+    Tree *bfsTree = g->BFS(session,root);
+    g->infectNode(bfsTree->traceTree()); // prepare next insure
+    delete (g);
+    delete (root);
+    delete (bfsTree);
 }
 
 /*------Contact Tracer--------*/
@@ -94,7 +99,10 @@ void ContactTracer::clear() {
 
 void ContactTracer::act(Session &session) {
     Graph *g=session.getGraph();
-    int *pQueue = &g->getQueue().back();
-    g->removeEdgeFromGraph(*pQueue);
-    delete (pQueue);
+    Tree *root=Tree::createTree(session,g->getQueue().back());     //fix root
+    Tree *bfsTree = g->BFS(session,root);
+    int num= bfsTree->traceTree();
+    g->removeEdgeFromGraph(num);
+    delete (root);
+    delete (bfsTree);
 }

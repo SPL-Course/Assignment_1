@@ -22,7 +22,7 @@ public:
     Graph(Graph &other);             // Copy constructor
     Graph& operator=(Graph &other);  // Assignment operator
     virtual ~Graph();                // Destructor
-    void clear();
+//    void clear();
 
     void removeEdgeFromGraph(int &node);
     Tree* BFS(Session& s, Tree *root);

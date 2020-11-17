@@ -41,13 +41,13 @@ Graph::Graph(Graph &other) {
 }
 
 Graph::~Graph() {
-    clear();
+//    clear();
 }
 
-void Graph::clear() {
-    if (this!= nullptr)
-        delete(this);
-}
+//void Graph::clear() {
+//    if (this!= nullptr)
+//        delete(this);
+//}
 
 void Graph::infectNode(int nodeInd) {
     if(!q.empty()) {
@@ -63,10 +63,8 @@ bool Graph::isInfected(int nodeInd) {
 }
 
 void Graph::removeEdgeFromGraph(int &node) {
-    edges[node].clear();
+        edges[node].clear();
 }
-
-
 
 Tree* Graph::BFS(Session& s, Tree *root) {
 

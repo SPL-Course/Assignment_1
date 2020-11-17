@@ -7,19 +7,19 @@
 using namespace std;
 
 int main(int argc, char** argv) {
-
+//
 //    if (argc != 2) {
 //        cout << "usage cTrace <config_path>" << endl;
 //        return 0;
 //    }
 
-    ifstream  i("../include/config1.json");
+    ifstream  i("../include/config4.json");
     json j;
     j << i;
-    Session sess(argv[1]);
-    //sess.simulate();
+//    Session sess(argv[1]);
+//    sess.simulate();
 
-    //cout << argc;
+//    cout << argc;
     //cout << argv[1];
 
     vector<vector<int>> matrix = {{0, 1, 0, 0, 1, 0, 0, 0, 0},
@@ -32,43 +32,42 @@ int main(int argc, char** argv) {
                                   {0, 0, 0, 0, 0, 1, 1, 0, 0},
                                   {0, 0, 0, 0, 0, 0, 1, 0, 0}};
 
-    //Graph g(matrix);
-    Graph *g = sess.getGraph();
-    Tree* root = Tree::createTree(sess);
-    g->BFS(sess,root);
+    Graph g(matrix);
+//    Graph *g5 = sess.getGraph();
+//    Tree *t=g.BFS(,t);
 
-//
-//    for (vector<int>::size_type i = 0; i < g.getEdges().size(); ++i) {
-//        for (vector<int>::size_type j = 0; j < g.getEdges()[i].size(); ++j) {
-//            cout << g.getEdges()[i][j];
-//        }
-//    }
+
+    for (vector<int>::size_type i = 0; i < g.getEdges().size(); ++i) {
+        for (vector<int>::size_type j = 0; j < g.getEdges()[i].size(); ++j) {
+            cout << g.getEdges()[i][j];
+        }
+    }
 //        cout << "" << endl;
-//
-//       g.infectNode(0);
-//       cout << "" << endl;
-//       g.infectNode(1);
-//       cout << "" << endl;
-//       g.infectNode(4);
-//       cout << "" << endl;
-//       g.infectNode(5);
-//       cout << "" << endl;
-//
-//       while(!g.getQueue().empty()) {
-//
-//           cout << " " << g.getQueue().front() << " ";
-//           g.getQueue().pop();
-//           cout << "" << endl;
-//       }
+
+       g.infectNode(0);
+       cout << "" << endl;
+       g.infectNode(1);
+       cout << "" << endl;
+       g.infectNode(4);
+       cout << "" << endl;
+       g.infectNode(5);
+       cout << "" << endl;
+
+       while(!g.getQueue().empty()) {
+
+           cout << " " << g.getQueue().front() << " ";
+           g.getQueue().pop();
+           cout << "" << endl;
+       }
 
 //       for (vector<int>::size_type j = 0; j < g.getVertex().size(); ++j){
 //            //cout << g.getVertex()[j] << endl;
 //            cout << g.isInfected(j) << " ";
 //       }
 
-//    Graph g2(g);
-//    cout<<endl;
-//
+    Graph g2(g);
+    cout<<endl;
+
 //        for (vector<int>::size_type i = 0; i < g2.getEdges().size(); ++i) {
 //            for (vector<int>::size_type j = 0; j < g2.getEdges()[i].size(); ++j) {
 //                cout << g2.getEdges()[i][j];
@@ -81,7 +80,7 @@ int main(int argc, char** argv) {
 //        cout << g2.isInfected(j) << " ";
 //    }
 //    cout << "" << endl;
-//
+
 //    while(!g2.getQueue().empty()) {
 //
 //        cout << " " << g2.getQueue().front() << " ";
