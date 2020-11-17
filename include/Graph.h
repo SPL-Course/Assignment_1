@@ -1,11 +1,13 @@
 
-
 #ifndef GRAPH_H_
 #define GRAPH_H_
 
 #include <vector>
 #include <queue>
 using namespace std;
+
+class Tree;
+class Session;
 
 class Graph{
 public:
@@ -23,6 +25,7 @@ public:
     void clear();
 
     void removeEdgeFromGraph(int &node);
+    Tree* BFS(Session& s, Tree *root);
 
 private:
     std::vector<std::vector<int>> edges;

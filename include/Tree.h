@@ -20,15 +20,14 @@ public:
     static Tree* createTree(const Session& session, int rootLabel); // returns a pointer to Tree
     virtual int traceTree()=0;        // Which node to disconnect?
     int getNode() const;
+    vector<Tree*> getChildren() const;
 
-    void BFS(Session& s, Tree *root);
-
-private:
-    int node;                         // Tree root
-    std::vector<Tree*> children;      // Pointer's vector to children
+    bool visited;
+    int depth, rank;
 
 protected:
-    bool visited;
+    int node;                         // Tree root
+    std::vector<Tree*> children;      // Pointer's vector to children
 };
 
 
@@ -36,7 +35,6 @@ class CycleTree: public Tree{
 public:
     CycleTree(int rootLabel, int currCycle);
     virtual int traceTree(); // if 0 - root, else go-left currCycle times
-
     virtual Tree* clone() const ;
 
 private:
@@ -53,7 +51,7 @@ class MaxRankTree: public Tree{
 public:
     MaxRankTree(int rootLabel);   
     virtual int traceTree(); // in loop updating Tree *max
-    virtual Tree* clone() const ;
+    virtual Tree* clone() const;
 };
 
 class RootTree: public Tree{     

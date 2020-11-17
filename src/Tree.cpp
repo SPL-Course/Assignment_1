@@ -5,7 +5,7 @@ using namespace std;
 
 //==========================Tree=========================
 
-Tree::Tree(int rootLabel): node(rootLabel), children(), visited(false){}
+Tree::Tree(int rootLabel): node(rootLabel), children(), visited(false), rank(0), depth(0){}
 
 Tree::~Tree() {
     if(this){
@@ -14,25 +14,6 @@ Tree::~Tree() {
         delete(this);
     }
 }
-
-void Tree::BFS(Session& s , Tree *root) {
-    Graph *g=s.getGraph();
-    queue<Tree*> nodes;
-    nodes.push(root);                               //root is the adress of the root, meaning the adress of node
-    while (!nodes.empty()){
-        Tree* temp=nodes.front();
-        nodes.pop();
-        for (int j = 0; j <g->getEdges().size(); ++j) {
-            Tree* child=createTree(s,temp->node);
-            if(child->visited) {
-                temp->addChild(*child);
-                nodes.push(child);
-            }
-        }
-    }
-}
-
-
 
 Tree * Tree::createTree(const Session &session, int rootLabel){
     TreeType tType=session.getTreeType();
@@ -62,12 +43,20 @@ int Tree::getNode() const {
     return node;
 }
 
+vector<Tree *> Tree::getChildren() const {
+    return children;
+}
+
 //==========================RootTree=====================================
 
 RootTree::RootTree(int rootLabel):Tree(rootLabel){}
 
 Tree * RootTree::clone() const {
     return (new RootTree(this->getNode()));
+}
+
+int RootTree::traceTree() {
+    return getNode();
 }
 
 //==========================CycleTree=====================================
@@ -77,9 +66,63 @@ Tree * CycleTree::clone() const {
     return (new CycleTree(this->getNode(),currCycle));
 }
 
+int CycleTree::traceTree() {// if 0 - root, else go-left currCycle times
+    int output=getNode();
+    if(currCycle==0)
+        return output;
+    Tree* root=getChildren()[0];
+    Tree* point;
+    for (int i = 1; i <currCycle; ++i) {
+        point= root->getChildren()[0];
+        root=point;
+    }
+    output=root->getNode();
+    delete (root);
+    delete (point);
+    return output;
+}
+
 //==========================MaxRankTree=====================================
 MaxRankTree::MaxRankTree(int rootLabel):Tree(rootLabel){}
 
 Tree * MaxRankTree::clone() const {
     return (new MaxRankTree(this->getNode()));
+}
+
+int MaxRankTree::traceTree() {
+
+    Tree *max = this;
+    for (int i = 0; i < children.size(); ++i) {
+
+        Tree *curr = children[i];
+        if (max->rank < curr->rank)     //case 1
+            max = curr;
+        if (max->rank == curr->rank) {     //case 2
+            if (curr->depth < max->depth)       //x
+                max = curr;
+            else if (max->depth == curr->depth && curr->getNode() < max->getNode())
+                    max = curr;
+            }
+    }
+
+    return max->getNode();
+}
+
+//    int output = getNode();            // root
+//    Tree *max = getChildren()[0];      // first child
+//    int maxChildren = max->getChildren().size();
+//    for (int i = 1; i < getChildren().size() ; ++i) {
+//        Tree* curr = getChildren()[i]; // other children
+//        int currChildren = curr->getChildren().size();
+//        if(maxChildren < currChildren){
+//            max = curr;
+//            maxChildren = currChildren;
+//        }
+//        else if( maxChildren == currChildren){
+//
+//        }
+//    }
+//
+//
+//    return output;
 }

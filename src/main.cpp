@@ -1,7 +1,9 @@
 
 #include "../include/Session.h"
-#include <iostream>
 #include "../include/Agent.h" // Added 15:31 13/11/20
+#include <iostream>
+#include <fstream>
+
 using namespace std;
 
 int main(int argc, char** argv) {
@@ -11,10 +13,10 @@ int main(int argc, char** argv) {
 //        return 0;
 //    }
 
-    //ifstream  i("config1.json");
-    //json j;
-    //j << i;
-    //Session sess(argv[1]);
+    ifstream  i("../include/config1.json");
+    json j;
+    j << i;
+    Session sess(argv[1]);
     //sess.simulate();
 
     //cout << argc;
@@ -30,7 +32,11 @@ int main(int argc, char** argv) {
                                   {0, 0, 0, 0, 0, 1, 1, 0, 0},
                                   {0, 0, 0, 0, 0, 0, 1, 0, 0}};
 
-//    Graph g(matrix);
+    //Graph g(matrix);
+    Graph *g = sess.getGraph();
+    Tree* root = Tree::createTree(sess);
+    g->BFS(sess,root);
+
 //
 //    for (vector<int>::size_type i = 0; i < g.getEdges().size(); ++i) {
 //        for (vector<int>::size_type j = 0; j < g.getEdges()[i].size(); ++j) {
