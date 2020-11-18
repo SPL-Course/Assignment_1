@@ -54,9 +54,9 @@ void Virus::act(Session &session) {
     Tree *root=Tree::createTree(session,nodeInd);     //fix root
     Tree *bfsTree = g->BFS(session,root);
     g->infectNode(bfsTree->traceTree()); // prepare next insure
-    delete (g);
-    delete (root);
-    delete (bfsTree);
+   // delete (g);
+    //delete (root);
+    //delete (bfsTree);
 }
 
 /*------Contact Tracer--------*/
@@ -103,6 +103,6 @@ void ContactTracer::act(Session &session) {
     Tree *bfsTree = g->BFS(session,root);
     int num= bfsTree->traceTree();
     g->removeEdgeFromGraph(num);
-    delete (root);
-    delete (bfsTree);
+    //delete (root);
+    //delete (bfsTree);
 }
