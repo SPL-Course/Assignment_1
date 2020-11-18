@@ -20,7 +20,7 @@ public:
     queue<int> &getQueue();          // 'q' field getter
 
     Graph(Graph &other);             // Copy constructor
-    Graph& operator=(Graph &other);  // Assignment operator
+    Graph& operator=(const Graph &other);  // Assignment operator
     virtual ~Graph();                // Destructor
 //    void clear();
 

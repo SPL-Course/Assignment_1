@@ -5,12 +5,38 @@
 #include "../include/Agent.h"
 using namespace std;
 
+void Session::setGraph(const Graph &graph) {
+  g=graph;
+}
+
+void Session::addAgent(const Agent &agent) {
+    Agent *toAdd;
+    *toAdd = agent;
+    agents.push_back(toAdd);
+    delete toAdd;
+}
+
+void Session::enqueueInfected(int node) {
+    g.getQueue().push(node);
+}
+
+int Session::dequeueInfected() {
+    int node = g.getQueue().front();
+    g.getQueue().pop();
+    return node;
+}
+
+void Session::simulate() {
+    for (int i = 0; i < agents.size(); ++i) {
+        agents[i]->act(*this);
+    }
+}
 
 vector<Agent *> Session::getAgents() {
     return agents;
 }
 
-Graph* Session::getGraph() {
+Graph *Session::getGraph(){
     return &g;
 }
 

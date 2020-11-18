@@ -30,14 +30,15 @@ queue<int> &Graph::getQueue() {                         // 'q' field getter
     return q;
 }
 
-Graph &Graph::operator=(Graph &other) {
+Graph &Graph::operator=(const Graph &other) {
+
     this->edges = other.edges;
     this->vecs = other.vecs;
     this->q = other.q;
 }
 
 Graph::Graph(Graph &other) {
-    this->operator=(other);
+    *this =other;
 }
 
 Graph::~Graph() {
@@ -70,9 +71,7 @@ Tree* Graph::BFS(Session& s, Tree *root) {
     Graph *g=s.getGraph();
     queue<Tree*> nodes;
     nodes.push(root);     //root is the adress of the root, meaning the adress of node
-    int tempDepth=0;
-    Tree* temp;
-    Tree* child;
+    int tempDepth=0; Tree* temp; Tree* child;
 
     vector <bool> visited(edges.size());
 
