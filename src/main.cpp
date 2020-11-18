@@ -14,13 +14,13 @@ int main(int argc, char** argv) {
 //        return 0;
     }
 
-    ifstream  i("../include/config4.json");
+    ifstream  i("../include/config1.json");
     json j;
     i >> j;
 
 
  //   cout << j<< endl;
-    Session sess("../include/config4.json");
+    Session sess("../include/config1.json");
 
     Agent *a = new Virus(0);
 
@@ -30,30 +30,31 @@ int main(int argc, char** argv) {
     //cout << argc;
     //cout << argv[1];
 
-    vector<vector<int>> matrix = {{0, 1, 0, 0, 1, 0, 0, 0, 0},
-                                  {1, 0, 1, 1, 0, 1, 1, 0, 0},
-                                  {0, 1, 0, 1, 0, 1, 0, 0, 0},
-                                  {0, 1, 1, 0, 0, 1, 0, 0, 0},
-                                  {1, 0, 0, 0, 0, 1, 0, 0, 0},
-                                  {0, 1, 1, 1, 1, 0, 0, 1, 0},
-                                  {0, 1, 0, 0, 0, 0, 0, 1, 1},
-                                  {0, 0, 0, 0, 0, 1, 1, 0, 0},
-                                  {0, 0, 0, 0, 0, 0, 1, 0, 0}};
+//    vector<vector<int>> matrix = {{0, 1, 0, 0, 1, 0, 0, 0, 0},
+//                                  {1, 0, 1, 1, 0, 1, 1, 0, 0},
+//                                  {0, 1, 0, 1, 0, 1, 0, 0, 0},
+//                                  {0, 1, 1, 0, 0, 1, 0, 0, 0},
+//                                  {1, 0, 0, 0, 0, 1, 0, 0, 0},
+//                                  {0, 1, 1, 1, 1, 0, 0, 1, 0},
+//                                  {0, 1, 0, 0, 0, 0, 0, 1, 1},
+//                                  {0, 0, 0, 0, 0, 1, 1, 0, 0},
+//                                  {0, 0, 0, 0, 0, 0, 1, 0, 0}};
 
-    Graph g(matrix);
+    //Graph g(matrix);
 
     Tree *t = Tree::createTree(sess,0);
     sess.getGraph()->BFS(sess,t);
-//    Graph *g5 = sess.getGraph();
-    t=g.BFS(sess,t);
 
+
+//    Graph *g5 = sess.getGraph();
+//    t=g.BFS(sess,t);
 
 //    for (vector<int>::size_type i = 0; i < g.getEdges().size(); ++i) {
 //        for (vector<int>::size_type j = 0; j < g.getEdges()[i].size(); ++j) {
 //            cout << g.getEdges()[i][j];
 //        }
 //    }
-////        cout << "" << endl;
+//        cout << "" << endl;
 //
 //       g.infectNode(0);
 //       cout << "" << endl;
@@ -76,8 +77,8 @@ int main(int argc, char** argv) {
 //            cout << g.isInfected(j) << " ";
 //       }
 
-    Graph g2(g);
-   // cout<<endl;
+//    Graph g2(g);
+//    cout<<endl;
 
 //        for (vector<int>::size_type i = 0; i < g2.getEdges().size(); ++i) {
 //            for (vector<int>::size_type j = 0; j < g2.getEdges()[i].size(); ++j) {
@@ -99,6 +100,23 @@ int main(int argc, char** argv) {
 //        cout << "" << endl;
 //    }
 
-    //Session session();
+    sess.simulate();
+
+    //// == output_Try == ////
+//    json k;
+//    vector<int> infected;
+//    while(!sess.getGraph()->getQueue().empty()){
+//        infected.push_back(sess.getGraph()->getQueue().front());
+//        sess.getGraph()->getQueue().pop();
+//    }
+//    k["infected"] = infected;
+//    int n = sess.getGraph()->getEdges().size();
+//    vector<vector<int>> graph(n);
+//    for (int k = 0; k < n ; ++k)
+//        for (int k = 0; k < sess.getGraph()->getEdges()[k].size(); ++k) {}
+//    k["graph"] = graph;
+//    ofstream  u("output.json");
+//    k >> u;
+
     return 0;
 }

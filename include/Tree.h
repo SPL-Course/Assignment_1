@@ -15,14 +15,12 @@ public:
    void addChild(const Tree &&child);
     virtual ~Tree();                  // Added - 12/11/20
     Tree(Tree &other);
-    virtual Tree* clone() const=0;
+    virtual Tree *clone() const=0;
 
     static Tree* createTree(const Session& session, int rootLabel); // returns a pointer to Tree
     virtual int traceTree()=0;        // Which node to disconnect?
     int getNode() const;
     vector<Tree*> getChildren() const;
-
-    bool visited;
     int depth, rank;
 
 protected:
@@ -35,7 +33,7 @@ class CycleTree: public Tree{
 public:
     CycleTree(int rootLabel, int currCycle);
     virtual int traceTree(); // if 0 - root, else go-left currCycle times
-    virtual Tree* clone() const ;
+    virtual Tree *clone() const ;
 
 private:
     int currCycle;                    // How many steps to take
@@ -51,7 +49,7 @@ class MaxRankTree: public Tree{
 public:
     MaxRankTree(int rootLabel);   
     virtual int traceTree(); // in loop updating Tree *max
-    virtual Tree* clone() const;
+    virtual Tree *clone() const;
 };
 
 class RootTree: public Tree{     
@@ -61,7 +59,7 @@ class RootTree: public Tree{
 public:
     RootTree(int rootLabel); 
     virtual int traceTree();  // return relevant tree's getNode();
-    virtual Tree* clone() const;
+    virtual Tree *clone() const;
 };
 
 #endif

@@ -68,40 +68,24 @@ void Graph::removeEdgeFromGraph(int &node) {
 }
 
 Tree* Graph::BFS(Session& s, Tree *root) {
-    Graph *g=s.getGraph();
-    queue<Tree*> nodes;
-    nodes.push(root);     //root is the adress of the root, meaning the adress of node
-    int tempDepth=0; Tree* temp; Tree* child;
 
+    Graph *g=s.getGraph(); queue<Tree*> nodes; Tree* temp; Tree* child;
     vector <bool> visited(edges.size());
 
+    nodes.push(root);
     while (!nodes.empty()){
-        int tempRank=0;
-        temp=nodes.front();
-       // cout << "temp: " << temp->getNode() << " ";
-        temp->depth=tempDepth;
-       // cout << "temp depth: " << temp->depth << " ";
-        temp->rank=tempRank;
-        //cout << "temp rank: " << temp->rank << endl;
-        nodes.pop();
-        for (int j = 0; j <g->edges[temp->getNode()].size(); ++j) {
-            //if (!child->visited){
+        temp=nodes.front(); nodes.pop();
+        visited[temp->getNode()] = true;
+        for (int j = 0; j < g->edges[temp->getNode()].size(); ++j) {
             if (!visited[edges[temp->getNode()][j]]){
                 child=Tree::createTree(s,edges[temp->getNode()][j]);
+                temp->rank = temp->rank+1; child->depth=temp->depth+1;
                 temp->addChild(*child);
-                tempRank++;
                 nodes.push(child);
-                //child->visited = true;
-                child->depth=tempDepth+1;
                 visited[edges[temp->getNode()][j]] = true;
             }
         }
-        root->getChildren().push_back(temp);
-
     }
-   // delete (child);                                                        //check deletes
-   // delete (temp);
-    //delete (g);
     return root;
 }
 

@@ -5,7 +5,7 @@ using namespace std;
 
 //==========================Tree=========================
 
-Tree::Tree(int rootLabel): node(rootLabel), children(), visited(false), rank(0), depth(0){}
+Tree::Tree(int rootLabel): node(rootLabel), children(), rank(0), depth(0){}
 
 Tree::~Tree() {
     if(this){
@@ -31,6 +31,8 @@ Tree::Tree(Tree &other) {
 
 void Tree::addChild(const Tree &child) {
     Tree *copy=child.clone();
+    copy->rank = child.rank;
+    copy->depth = child.depth;
     children.push_back(copy);
 }
 
