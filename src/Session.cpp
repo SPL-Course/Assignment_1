@@ -6,14 +6,14 @@
 using namespace std;
 
 void Session::setGraph(const Graph &graph) {
-  g=graph;
+  //g = graph;
 }
 
 void Session::addAgent(const Agent &agent) {
-    Agent *toAdd;
-    *toAdd = agent;
-    agents.push_back(toAdd);
-    delete toAdd;
+//    Agent *toAdd;
+//    *toAdd = agent;
+//    agents.push_back(toAdd);
+//    delete toAdd;
 }
 
 void Session::enqueueInfected(int node) {
@@ -21,9 +21,9 @@ void Session::enqueueInfected(int node) {
 }
 
 int Session::dequeueInfected() {
-    int node = g.getQueue().front();
-    g.getQueue().pop();
-    return node;
+    // node = g.getQueue().front().nodeInd;
+//    g.getQueue().pop();
+//    return node;
 }
 
 void Session::simulate() {
@@ -45,8 +45,7 @@ Session::Session(const std::string& path): g(vector<vector<int>>()),treeType(), 
     std::ifstream i(path);
     json j;
     i >> j;
-    Graph g2(j["graph"]);
-    g = g2;
+    Graph g(j["graph"]);
 
     if (j["tree"] == "M")
         treeType = MaxRank;
@@ -56,13 +55,33 @@ Session::Session(const std::string& path): g(vector<vector<int>>()),treeType(), 
         treeType = Root;
 
     for (int i = 0; i < j["agents"].size(); i++) {
-        if (j["agents"][i][0] == 'V')           //check what is in the input
-            agents.push_back(new Virus(j["agents"][i][1]));     //check how to get the value of the pair in virus
-        else
-            agents.push_back(new ContactTracer());
+
+        Agent *currAgent;
+
+        if (j["agents"][i][0] == "V") {
+            Virus v(j["agents"][i][1]);
+            currAgent = v.clone();
+        }
+
+        else {
+            ContactTracer c;
+            currAgent = c.clone();
+        }
+
+        agents.push_back(currAgent);
     }
 }
 
+
+Session::Session(const Session &other): g(vector<vector<int>>()), treeType(other.treeType), agents()  {
+
+    for (int i = 0; i < other.agents.size(); ++i) {
+        Agent *newAgent = other.agents[i]->clone();
+        agents.push_back(newAgent);
+    }
+
+    // copy its graph g field also
+}
 
     TreeType Session::getTreeType() const {
         return treeType;

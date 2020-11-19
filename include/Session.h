@@ -1,9 +1,9 @@
 
+
 #ifndef SESSION_H_
 #define SESSION_H_
 
 #include "Graph.h"
-#include <vector>
 #include <string>
 #include "json.hpp"
 
@@ -22,15 +22,16 @@ enum TreeType{
 class Session{
 public:
     Session(const std::string& path);
+    Session(const Session& other);
     
-    void simulate();                     // !~Most general function~!
-    void addAgent(const Agent& agent);   // Each Infec' get-in
-    void setGraph(const Graph& graph);   // Change Edges
+    void simulate();
+    void addAgent(const Agent& agent);
+    void setGraph(const Graph& graph);
     
-    void enqueueInfected(int);           // Need to build Q (Standard C++)
-    int dequeueInfected();               // Need to build Q (Standard C++)
+    void enqueueInfected(int);
+    int dequeueInfected();
     
-    TreeType getTreeType() const;        // from input (json-?)
+    TreeType getTreeType() const;
     vector<Agent*> getAgents();
     Graph *getGraph();
 

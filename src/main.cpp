@@ -9,20 +9,51 @@ using namespace std;
 
 int main(int argc, char** argv) {
 
-    if (argc != 2) {
-        cout << "usage cTrace <config_path>" << endl;
-//        return 0;
-    }
+//    if (argc != 2) {
+//        cout << "usage cTrace <config_path>" << endl;
+////        return 0;
+//    }
 
     ifstream  i("../include/config1.json");
     json j;
     i >> j;
 
+    //cout << j<< endl;
 
- //   cout << j<< endl;
-    Session sess("../include/config1.json");
 
-    Agent *a = new Virus(0);
+//    Session sess("../include/config1.json"); // To Build Again
+//
+//  Agent *a = new Virus(0)
+
+    //cout<<j["agents"];
+
+
+//    Agent *a;
+//
+//    cout << j["agents"][0][0] << endl;
+//    if(j["agents"][0][0] == "V"){
+//        Virus b(j["agents"][0][1]);
+//        a =  b.clone();
+//    }
+//    else{
+//        ContactTracer b;
+//        a = b.clone();
+//    }
+
+
+//    Virus a(2);
+//    //cout << a.getNodeInd() << endl;
+//    cout << a.getNodeInd() << endl;
+//    cout << &a << endl;
+//
+//    Agent *b = a.clone();
+
+    //Agent *b2 = new Virus(2);
+
+    //cout << b.getNodeInd();
+    //cout << &b << endl;
+    //cout << b << "?" << endl;
+
 
     //a->act(sess);
 //    sess.simulate();
@@ -42,8 +73,8 @@ int main(int argc, char** argv) {
 
     //Graph g(matrix);
 
-    Tree *t = Tree::createTree(sess,0);
-    sess.getGraph()->BFS(sess,t);
+    //Tree *t = Tree::createTree(sess,0);
+    //sess.getGraph()->BFS(sess,t);
 
 
 //    Graph *g5 = sess.getGraph();
@@ -100,7 +131,7 @@ int main(int argc, char** argv) {
 //        cout << "" << endl;
 //    }
 
-    sess.simulate();
+    //sess.simulate();
 
     //// == output_Try == ////
 //    json k;

@@ -1,7 +1,6 @@
 
 #include "../include/Graph.h"
 #include "../include/Tree.h"
-#include <iostream>
 using namespace std;
 
 Graph:: Graph(vector<vector<int>> matrix): edges(), vecs(), q() {  // Constructor
@@ -18,32 +17,32 @@ Graph:: Graph(vector<vector<int>> matrix): edges(), vecs(), q() {  // Constructo
     }
 }
 
-vector<vector<int>> &Graph::getEdges() {                    // 'edges' field getter
-   return edges;
-}
+//vector<vector<int>> &Graph::getEdges() {                    // 'edges' field getter
+//   return edges;
+//}
+//
+//vector<int> &Graph::getVertex() {                         // 'vecs' field getter
+//    return vecs;
+//}
 
-vector<int> &Graph::getVertex() {                         // 'vecs' field getter
-    return vecs;
-}
-
-queue<int> &Graph::getQueue() {                         // 'q' field getter
+queue<Virus> &Graph::getQueue() {                         // 'q' field getter
     return q;
 }
-
-Graph &Graph::operator=(const Graph &other) {
-
-    this->edges = other.edges;
-    this->vecs = other.vecs;
-    this->q = other.q;
-}
-
-Graph::Graph(Graph &other) {
-    *this =other;
-}
-
-Graph::~Graph() {
+//
+//Graph &Graph::operator=(const Graph &other) {
+//
+//    this->edges = other.edges;
+//    this->vecs = other.vecs;
+//    this->q = other.q;
+//}
+//
+//Graph::Graph(Graph &other) {
+//    *this =other;
+//}
+//
+//Graph::~Graph() {
 //    clear();
-}
+//}
 
 //void Graph::clear() {
 //    if (this!= nullptr)
@@ -52,11 +51,20 @@ Graph::~Graph() {
 
 void Graph::infectNode(int nodeInd) {
     if(!q.empty()) {
-        int x = q.back();
+        int x = q.back().nodeInd;
         vecs[x]++;
     }
-    q.push(nodeInd);
+    Virus a(nodeInd);
+    q.push(a);
     vecs[nodeInd]++;
+
+
+    //    if(!q.empty()) {
+//        int x = q.back();
+//        vecs[x]++;
+//    }
+//    q.push(nodeInd);
+//    vecs[nodeInd]++;
 }
 
 bool Graph::isInfected(int nodeInd) {
