@@ -25,20 +25,31 @@ Graph:: Graph(vector<vector<int>> matrix): edges(), vecs(), q() {  // Constructo
 //    return vecs;
 //}
 
-queue<Virus> &Graph::getQueue() {                         // 'q' field getter
+//queue<Virus> & Graph::getQueue() {}
+//queue<int> &Graph::getQueue() {                         // 'q' field getter
+    //return q;
+//}
+//
+queue<Virus> & Graph::getQueue() {
     return q;
 }
+
+Graph &Graph::operator=(const Graph &other) {
+
+    edges=other.edges;
+    vecs = other.vecs;
+    //q = other.q;
+//    int i=q.size();
+//    queue<Virus> vaid;
+//    while(i>0){
+//        Virus ad=other.q.front().clone();
+//        q.push(ad)
+//    }
+}
 //
-//Graph &Graph::operator=(const Graph &other) {
-//
-//    this->edges = other.edges;
-//    this->vecs = other.vecs;
-//    this->q = other.q;
-//}
-//
-//Graph::Graph(Graph &other) {
-//    *this =other;
-//}
+Graph::Graph(Graph &other):edges(), vecs(), q() {
+    *this = other;
+}
 //
 //Graph::~Graph() {
 //    clear();
@@ -58,8 +69,7 @@ void Graph::infectNode(int nodeInd) {
     q.push(a);
     vecs[nodeInd]++;
 
-
-    //    if(!q.empty()) {
+//   if (!q.empty()) {
 //        int x = q.back();
 //        vecs[x]++;
 //    }

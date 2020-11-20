@@ -1,17 +1,18 @@
 
-
 #ifndef SESSION_H_
 #define SESSION_H_
 
-#include "Graph.h"
+#include <vector>
 #include <string>
-#include "json.hpp"
 
+#include "Graph.h"
+class Agent;
+
+/*----Added-------*/
+#include "json.hpp"
 using json = nlohmann::json;
 using namespace std;
-
-
-class Agent;
+/*---------------*/
 
 enum TreeType{
   Cycle,
@@ -36,9 +37,12 @@ public:
     Graph *getGraph();
 
 private:
-    Graph g;                             // from string & can change status
+    Graph g;
     TreeType treeType;
     std::vector<Agent*> agents;
+
+protected:
+    bool terminated;
 };
 
 #endif

@@ -1,19 +1,29 @@
 
+#include <iostream>
 #include "../include/Session.h"
+using namespace std;
+
+/*----Added-------*/
+#include <fstream>
 #include "../include/Agent.h" // Added 15:31 13/11/20
 #include "../include/Tree.h" // Added 15:31 13/11/20
-#include <iostream>
-#include <fstream>
-
-using namespace std;
+/*---------------*/
 
 int main(int argc, char** argv) {
 
+/*------------Original Main-------*/
+
 //    if (argc != 2) {
 //        cout << "usage cTrace <config_path>" << endl;
-////        return 0;
+//        return 0;
 //    }
+//
+//    Session sess(argv[1]);
+//    sess.simulate();
+//    return 0;
+//}
 
+/*------------Free Checks Main-------*/
     ifstream  i("../include/config1.json");
     json j;
     i >> j;
@@ -151,3 +161,4 @@ int main(int argc, char** argv) {
 
     return 0;
 }
+/*----------------------------------*/

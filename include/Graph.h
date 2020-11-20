@@ -2,11 +2,15 @@
 #ifndef GRAPH_H_
 #define GRAPH_H_
 
+#include <vector>
+
+/*-------Added-------*/
 #include "Agent.h"
 using namespace std;
 
 class Session;
 class Tree;
+/*-------------------*/
 
 class Graph{
 public:
@@ -18,8 +22,8 @@ public:
 //    vector<int> &getVertex();        // 'vecs' field getter
     queue<Virus> &getQueue();          // 'q' field getter
 
-//    Graph(Graph &other);             // Copy constructor
-//    Graph& operator=(const Graph &other);  // Assignment operator
+    Graph(Graph &other);             // Copy constructor
+    Graph& operator=(const Graph &other);  // Assignment operator
 //    virtual ~Graph();                // Destructor
 
     void removeEdgeFromGraph(int &node);

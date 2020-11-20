@@ -2,8 +2,11 @@
 #ifndef TREE_H_
 #define TREE_H_
 
+using namespace std;
 #include <vector>
-#include "Session.h" // added 16.11 18:00
+class Session;
+
+//#include "Session.h" // replaced 19.11 21:00
 
 class Tree{
 
@@ -12,7 +15,7 @@ class Tree{
 public:
     Tree(int rootLabel);              // Constructor (root)
     void addChild(const Tree& child); // Add node to Tree
-   void addChild(const Tree &&child);
+   //void addChild(const Tree &&child);
     virtual ~Tree();                  // Added - 12/11/20
     Tree(Tree &other);
     virtual Tree *clone() const=0;
