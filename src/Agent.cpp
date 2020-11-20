@@ -1,12 +1,13 @@
 
 #include "../include/Agent.h"
-#include "../include/Tree.h" // Added 18.11 13:00
+#include "../include/Tree.h"    //added
+#include <iostream>
 using namespace std;
 
 /*----------Agent------------*/
 
 Agent::Agent() {}
-Agent::~Agent() {} // Added 19.11 20:25
+// Agent::~Agent() {} // Added 19.11 20:25
 
 /*----------Virus------------*/
 
@@ -28,9 +29,9 @@ int Virus::getNodeInd() const
 void Virus::act(Session &session)
 {
     Graph *g = session.getGraph();
-    Tree *root=Tree::createTree(session,nodeInd);     //fix root
-    Tree *bfsTree = g->BFS(session,root);
-    g->infectNode(bfsTree->traceTree()); // prepare next insure
+//    Tree *root=Tree::createTree(session,nodeInd);     //fix root
+//    Tree *bfsTree = g->BFS(session,root);
+//    g->infectNode(bfsTree->traceTree()); // prepare next insure
 }
 
 /*------Contact Tracer--------*/
@@ -47,9 +48,9 @@ Agent *ContactTracer::clone() const
 
 void ContactTracer::act(Session &session)
 {
-    Graph *g=session.getGraph();
-    Tree *root=Tree::createTree(session,g->getQueue().back().getNodeInd());
-    Tree *bfsTree = g->BFS(session,root);
-    int num= bfsTree->traceTree();
-    g->removeEdgeFromGraph(num);
+//    Graph *g=session.getGraph();
+//    Tree *root=Tree::createTree(session,g->getQueue().back().getNodeInd());
+//    Tree *bfsTree = g->BFS(session,root);
+//    int num= bfsTree->traceTree();
+//    g->removeEdgeFromGraph(num);
 }

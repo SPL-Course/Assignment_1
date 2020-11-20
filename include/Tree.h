@@ -2,11 +2,10 @@
 #ifndef TREE_H_
 #define TREE_H_
 
-using namespace std;
 #include <vector>
-class Session;
-
-//#include "Session.h" // replaced 19.11 21:00
+#include "Session.h" // replaced 19.11 21:00
+using namespace std;
+//class Session;
 
 class Tree{
 

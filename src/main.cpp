@@ -1,13 +1,11 @@
 
-#include <iostream>
 #include "../include/Session.h"
-using namespace std;
-
-/*----Added-------*/
-#include <fstream>
 #include "../include/Agent.h" // Added 15:31 13/11/20
 #include "../include/Tree.h" // Added 15:31 13/11/20
-/*---------------*/
+#include <iostream>
+#include <fstream>
+using namespace std;
+using namespace nlohmann;
 
 int main(int argc, char** argv) {
 

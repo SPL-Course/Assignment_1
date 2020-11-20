@@ -2,7 +2,9 @@
 #include "../include/Session.h"
 #include <fstream>
 #include <iostream>
+#include "../include/Agent.h"
 using namespace std;
+using namespace nlohmann;
 
 Session::Session(const std::string& path):
      g(vector<vector<int>>()),treeType(), agents(vector<Agent*>()), terminated(false)
@@ -54,37 +56,37 @@ TreeType Session::getTreeType() const
 
 void Session::setGraph(const Graph &graph) { /*g=graph;*/}
 
-void Session::addAgent(const Agent &agent)
-{
-    Agent *toAdd = agent.clone();
-    agents.push_back(toAdd);
-}
+//void Session::addAgent(const Agent &agent)
+//{
+//    Agent *toAdd = agent.clone();
+//    agents.push_back(toAdd);
+//}
 
 void Session::enqueueInfected(int node)
 {
-    Virus add(node);
-    g.getQueue().push(add);
+//    Virus add(node);
+//    g.getQueue().push(add);
 }
 
 int Session::dequeueInfected()
 {
-    int node = g.getQueue().front().nodeInd;
-    g.getQueue().pop();
-    return node;
+//    int node = g.getQueue().front().nodeInd;
+//    g.getQueue().pop();
+//    return node;
 }
 
 void Session::simulate()
 {
     while(!terminated) { // endless loop need to set true at Graph
-        for (int i = 0; i < agents.size(); ++i)
-            agents[i]->act(*this);
+        for (int i = 0; i < agents.size(); ++i){}
+            //agents[i]->act(*this);
     }
 }
 
-vector<Agent *> Session::getAgents()
-{
-    return agents;
-}
+//vector<Agent *> Session::getAgents()
+//{
+//    return agents;
+//}
 
 Graph *Session::getGraph()
 {

@@ -3,14 +3,9 @@
 #define GRAPH_H_
 
 #include <vector>
-
-/*-------Added-------*/
-#include "Agent.h"
-using namespace std;
-
-class Session;
-class Tree;
-/*-------------------*/
+#include <queue>
+//#include "Agent.h"
+//using namespace std;
 
 class Graph{
 public:
@@ -18,21 +13,21 @@ public:
     void infectNode(int nodeInd); // @
     bool isInfected(int nodeInd); // @
 
-//    vector<vector<int>> &getEdges(); // 'edges' field getter
-//    vector<int> &getVertex();        // 'vecs' field getter
-    queue<Virus> &getQueue();          // 'q' field getter
+    Graph(Graph &other);                 // Copy constructor
+    void removeEdgeFromGraph(int &node); // change (int &) to (int)
+    //Tree* BFS(Session& s, int *root);
+    std::vector<int> vecs;                    // private to public
 
-    Graph(Graph &other);             // Copy constructor
-    Graph& operator=(const Graph &other);  // Assignment operator
-//    virtual ~Graph();                // Destructor
-
-    void removeEdgeFromGraph(int &node);
-    Tree* BFS(Session& s, Tree *root);
+    //  vector<vector<int>> &getEdges();       // 'edges' field getter
+    //  vector<int> &getVertex();              // 'vecs' field getter
+//      queue<int> &getQueue();              // 'q' field getter
+    //  Graph& operator=(const Graph &other);  // Assignment operator
+    //  virtual ~Graph();                      // Destructor
 
 private:
     std::vector<std::vector<int>> edges;
-    vector<int> vecs;
-    queue<Virus> q;
+    //  vector<int> vecs; // private to public
+//      queue<Virus> q;
 };
 
 #endif

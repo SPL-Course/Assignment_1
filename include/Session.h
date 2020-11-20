@@ -2,17 +2,13 @@
 #ifndef SESSION_H_
 #define SESSION_H_
 
+#include "Graph.h"
 #include <vector>
 #include <string>
-
-#include "Graph.h"
-class Agent;
-
-/*----Added-------*/
 #include "json.hpp"
-using json = nlohmann::json;
 using namespace std;
-/*---------------*/
+
+class Agent;
 
 enum TreeType{
   Cycle,
@@ -26,14 +22,14 @@ public:
     Session(const Session& other);
     
     void simulate();
-    void addAgent(const Agent& agent);
+    //void addAgent(const Agent& agent);
     void setGraph(const Graph& graph);
     
     void enqueueInfected(int);
     int dequeueInfected();
     
     TreeType getTreeType() const;
-    vector<Agent*> getAgents();
+//    vector<Agent*> getAgents();
     Graph *getGraph();
 
 private:

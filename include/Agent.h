@@ -3,18 +3,17 @@
 #define AGENT_H_
 
 #include <vector>
-/*----Added-------*/
 #include <queue>
-#include "Session.h"
-//class Session;
+#include "Session.h"  //check if ok
 using namespace std;
-/*----------------*/
+
+//class Session;
 
 class Agent{
 public:
     Agent();
     virtual void act(Session& session)=0;
-    virtual ~Agent();                  //added
+    //virtual ~Agent();                  //added
     virtual Agent* clone() const = 0;  //added
 //protected: Agent* pAgent;
 };
@@ -48,7 +47,7 @@ public:
     //Virus(Virus &&other);                     //move constructor
     //void clear();
 //protected: Virus const *pV; Virus *other;
-//private:
+private:
     const int nodeInd; // @ Changed to public
 };
 
