@@ -71,7 +71,9 @@ bool Graph::infectNextNode(int father)
    return output;
 }
 
-//int * Graph::BFS(Session &s, int *root) {}
+Tree * Graph::BFS(Session &s, int node) {
+
+}
 
 //Tree* Graph::BFS(Session& s, Tree *root) {
 //
