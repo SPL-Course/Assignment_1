@@ -27,8 +27,18 @@ int main(int argc, char** argv) {
     json j;
     i >> j;
 
-    //cout << j<< endl;
-
+//    vector<bool> v(5);
+//    for(bool value: v) {
+//        cout << value << " ";
+//    }
+//
+//    cout << endl;
+//    v.at(2) = true;
+//    v.at(3 ) = 1;
+//
+//    for(bool value: v) {
+//        cout << value << " ";
+//    }
 
 //    Session sess("../include/config1.json"); // To Build Again
 //
@@ -79,8 +89,32 @@ int main(int argc, char** argv) {
 //                                  {0, 1, 0, 0, 0, 0, 0, 1, 1},
 //                                  {0, 0, 0, 0, 0, 1, 1, 0, 0},
 //                                  {0, 0, 0, 0, 0, 0, 1, 0, 0}};
+//
+//    Graph g(matrix);
 
-    //Graph g(matrix);
+//    g.vecs.at(0) = 1;
+//    g.vecs.at(1) = 2;
+//    g.vecs.at(2) = 1;
+//    g.vecs.at(4) = 2;
+//    g.vecs.at(6) = 1;
+//
+//    for (int i = 0; i < g.getEdges().size(); ++i) {
+//        for (int j = 0; j < g.getEdges().at(i).size(); ++j) {
+//            cout << g.getEdges()[i][j] <<" ";
+//        }
+//        cout<<endl;
+//    }
+//
+//    for (int i = 0; i < g.vecs.size() ; i++)
+//        cout << g.vecs.at(i) <<" ";
+//
+//    cout<<endl;
+//    g.infectNextNode(5);
+//
+//
+//    for (int i = 0; i < g.vecs.size() ; i++)
+//        cout << g.vecs.at(i) <<" ";
+
 
     //Tree *t = Tree::createTree(sess,0);
     //sess.getGraph()->BFS(sess,t);
@@ -89,11 +123,7 @@ int main(int argc, char** argv) {
 //    Graph *g5 = sess.getGraph();
 //    t=g.BFS(sess,t);
 
-//    for (vector<int>::size_type i = 0; i < g.getEdges().size(); ++i) {
-//        for (vector<int>::size_type j = 0; j < g.getEdges()[i].size(); ++j) {
-//            cout << g.getEdges()[i][j];
-//        }
-//    }
+
 //        cout << "" << endl;
 //
 //       g.infectNode(0);

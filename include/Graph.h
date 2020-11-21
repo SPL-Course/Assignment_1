@@ -4,30 +4,22 @@
 
 #include <vector>
 #include <queue>
-//#include "Agent.h"
-//using namespace std;
+// #include "Agent.h"
 
 class Graph{
 public:
     Graph(std::vector<std::vector<int>> matrix);
-    void infectNode(int nodeInd); // @
-    bool isInfected(int nodeInd); // @
-
-    Graph(Graph &other);                 // Copy constructor
-    void removeEdgeFromGraph(int &node); // change (int &) to (int)
+    Graph(Graph &other);                // Done - to check
+    void infectNode(int nodeInd);       // Done - to check
+    bool isInfected(int nodeInd);       // Done - to check
+    std::vector<std::vector<int>> getEdges() const; // Done - to check
+    void removeNodeEdges(int toRemove); // Done - checked
+    bool infectNextNode(int father);    // Done - checked
+    std::vector<int> vecs;
     //Tree* BFS(Session& s, int *root);
-    std::vector<int> vecs;                    // private to public
-
-    //  vector<vector<int>> &getEdges();       // 'edges' field getter
-    //  vector<int> &getVertex();              // 'vecs' field getter
-//      queue<int> &getQueue();              // 'q' field getter
-    //  Graph& operator=(const Graph &other);  // Assignment operator
-    //  virtual ~Graph();                      // Destructor
 
 private:
     std::vector<std::vector<int>> edges;
-    //  vector<int> vecs; // private to public
-//      queue<Virus> q;
 };
 
 #endif

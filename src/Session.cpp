@@ -54,7 +54,7 @@ TreeType Session::getTreeType() const
         return treeType;
 }
 
-void Session::setGraph(const Graph &graph) { /*g=graph;*/}
+void Session::setGraph(const Graph &graph) { g = graph ;}
 
 //void Session::addAgent(const Agent &agent)
 //{

@@ -4,9 +4,10 @@
 #include <iostream>
 using namespace std;
 
-Graph:: Graph(vector<vector<int>> matrix): edges(), vecs() /*, q()*/ // Constructor
+Graph:: Graph(vector<vector<int>> matrix): edges(), vecs()
 {
     for(vector<int> node : matrix) {
+
         vector<int> neighbors;
         int counter = 0;
         for (int other : node) {
@@ -19,25 +20,55 @@ Graph:: Graph(vector<vector<int>> matrix): edges(), vecs() /*, q()*/ // Construc
     }
 }
 
-Graph::Graph(Graph &other): edges(), vecs()/*, q()*/
-{
-    *this = other;
-}
+Graph::Graph(Graph &other): edges(other.edges), vecs(other.vecs) {}
 
 bool Graph::isInfected(int nodeInd)
 {
     return vecs[nodeInd] != 0;
 }
 
-void Graph::removeEdgeFromGraph(int &node) // need to rename & remove from others also
-{
-    edges[node].clear();
-}
-
 void Graph::infectNode(int nodeInd)
 {
 // if(!isInfected(nodeInd)
     vecs[nodeInd]++;
+}
+
+std::vector<std::vector<int>> Graph::getEdges() const
+{
+    return edges;
+}
+
+void Graph::removeNodeEdges(int toRemove)
+{
+    int mainSize = edges.size();
+    for (int i = 0; i < mainSize; ++i) {
+             if(i == toRemove)
+                 edges.at(i).clear();
+             else {
+                vector<int> updated;
+                int innerSize = edges.at(i).size();
+                for (int j = 0; j < innerSize; ++j) {
+                    if(edges.at(i).at(j) != toRemove)
+                        updated.push_back(edges.at(i).at(j));
+                }
+                edges[i] = vector<int>(updated);
+             }
+    }
+}
+
+bool Graph::infectNextNode(int father)
+{
+   bool output = false;
+   int fatherEdgesSize = edges.at(father).size();
+   for (int i = 0; i < fatherEdgesSize & !output; ++i) {
+        int neighbor = edges.at(father).at(i);
+        int status = vecs.at(neighbor);
+        if (status == 0) {
+            infectNode(neighbor);
+            output = true;
+        }
+   }
+   return output;
 }
 
 //int * Graph::BFS(Session &s, int *root) {}
