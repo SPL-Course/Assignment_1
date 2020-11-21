@@ -6,7 +6,7 @@
 #include <vector>
 #include <string>
 #include "json.hpp"
-using namespace std;
+
 
 class Agent;
 
@@ -19,18 +19,27 @@ enum TreeType{
 class Session{
 public:
     Session(const std::string& path);
-    Session(const Session& other);
-    
+//    Session(const Session& other);                  //copy constructor
+//    virtual ~Session();                            //destructor
+//    Session(Session&& other);               //move constructor
+//    Session& operator=(const Session &other);    //move Assignment operator
+//    Session& operator=(const Session &&other);  //copy Assignment operator
+//    void clear();
+
     void simulate();
-    //void addAgent(const Agent& agent);
+    void addAgent(const Agent& agent);
     void setGraph(const Graph& graph);
     
     void enqueueInfected(int);
     int dequeueInfected();
     
     TreeType getTreeType() const;
-//    vector<Agent*> getAgents();
+    //std::vector<Agent*> getAgents();
     Graph *getGraph();
+    //std::queue<int> *getInfected(); //just for example
+    std::vector<bool> *getDone();
+    int counter;
+    std::vector<bool>done;
 
 private:
     Graph g;
@@ -39,6 +48,8 @@ private:
 
 protected:
     bool terminated;
+    std::queue<int>infectedNode;
+
 };
 
 #endif
