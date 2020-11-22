@@ -41,7 +41,10 @@ Tree &Tree::operator=(Tree &&other) noexcept {
         node = other.node;
         rank = other.rank;
         depth = other.depth;
-        children = other.children;
+        int size = other.children.size();
+        for (unsigned int i = 0; i < size; ++i) {
+            children.push_back(other.children.at(i)->clone());
+        }
         steal(other);
     }
     return *this;
@@ -49,7 +52,8 @@ Tree &Tree::operator=(Tree &&other) noexcept {
 
 void Tree::steal(Tree &other)
 {
-    for(unsigned int i = 0; i<other.children.size(); i++)
+    int size=other.children.size();
+    for(unsigned int i = 0; i<size; i++)
         children.at(i) = nullptr;
 }
 

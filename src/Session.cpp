@@ -99,71 +99,92 @@ queue<int> * Session::getInfected()
     return &infectedNode;
 }
 
+Session::~Session()
+{
+    clear();
+}
 
-//Session::Session(const Session &other):
-//   g(vector<vector<int>>()), treeType(other.treeType), agents(), terminated(other.terminated),done(other.done),infectedNode(other.infectedNode),counter(other.counter)
-//{
-//    int count= other.agents.size();
-//    for (int i = 0; i <count ; ++i) {
-//        Agent *newAgent = other.agents[i]->clone();
-//        agents.push_back(newAgent);
-//    }
-//    //g=other.g;
-//}
+void Session::steal(Session &other)
+{
+    int size=agents.size();
+    for (unsigned int i = 0; i < size; ++i) {
+        agents.at(i) = nullptr;
+    }
+}
 
-//Session::Session(Session &&other): g(vector<vector<int>>()) ,treeType(other.treeType), agents(other.agents), terminated(other.terminated),done(other.done),infectedNode(other.infectedNode),counter(other.counter)
-//{
-//    other.treeType = Root;
-//    other.terminated= 0;
-//    other.done = vector<bool>();
-//    other.infectedNode = queue<int>();
-//    other.counter=0;
-//}
+Session & Session::operator=(const Session &other) {
+    if(this!=&other) {
+        clear();
+        treeType = other.treeType;
+        g = Graph(other.g);
+        terminated = other.terminated;
+        done = other.done;
+        infectedNode = other.infectedNode;
+        counter = other.counter;
+    }
+    int size=other.agents.size();
+    for (unsigned int i = 0; i <size ; ++i) {
+        Agent *newAgent = other.agents[i]->clone();
+        agents.push_back(newAgent);
+    }
+    return *this;
+}
 
-//Session & Session::operator=(const Session &other) {
-//    treeType=other.treeType;
-//    g=other.g;
-//    agents=other.agents;
-//    terminated=other.terminated;
-//    done=other.done;
-//    infectedNode=other.infectedNode;
-//    counter=other.counter;
-//}
+Session & Session::operator=(Session &&other)
+{
+    if(this!= &other){
+        clear();
+        treeType=other.treeType;
+        g=other.g;
+        terminated=other.terminated;
+        done=other.done;
+        infectedNode=other.infectedNode;
+        counter=other.counter;
+        int count=agents.size();
+        for (unsigned int i = 0; i <count ; ++i) {
+            Agent *newAgent = other.agents[i]->clone();
+            agents.push_back(newAgent);
+        }
+        steal(other);
+    }
+    return *this;
+}
 
-//Session & Session::operator=(const Session &&other) {
-//    if(this!= &other){
-//        clear();
-//        treeType=other.treeType;
-//        g=other.g;
-//        agents=other.agents;
-//        terminated=other.terminated;
-//        done=other.done;
-//        infectedNode=other.infectedNode;
-//        counter=other.counter;
-//
-//    }
-//}
-//void Session::clear()
-//{
-//    delete (g);
-//    treeType=Root;
-//    for(int i=0;i<agents.size();i++){
-//        delete(agents[i]);
-//    }
-//    delete (terminated);
-//
-//}
+void Session::clear() {
+    int size = agents.size();
+    for (unsigned int i = 0; i < size; ++i) {
+        if (agents.at(i) != nullptr) {
+            delete (agents.at(i));
+            agents.at(i) = nullptr;
+        }
+    }
+}
+
+Session::Session(const Session &other):
+        g(vector<vector<int>>()), treeType(other.treeType), agents(), terminated(other.terminated),done(other.done),infectedNode(other.infectedNode),counter(other.counter)
+{
+    g=Graph(other.g);
+    int count= other.agents.size();
+    for (unsigned int i = 0; i < count ; ++i) {
+        Agent *newAgent = other.agents[i]->clone();
+        agents.push_back(newAgent);
+    }
+
+}
+
+Session::Session(Session &&other): g(vector<vector<int>>()) ,treeType(other.treeType), agents(move(other.agents)), terminated(other.terminated),done(other.done),infectedNode(other.infectedNode),counter(other.counter)
+{
+    g=other.g;
+    steal(other);
+}
 
 
-//    while(!terminated) { // endless loop need to set true at Graph
-//        for (int i = 0; i < agents.size(); ++i){}
-//            //agents[i]->act(*this);
-//    }
+vector<Agent *> Session::getAgents()
+{
+    return agents;
+}
 
-//vector<Agent *> Session::getAgents()
-//{
-//    return agents;
-//}
+
 
 
 

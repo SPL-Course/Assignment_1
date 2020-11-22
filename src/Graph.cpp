@@ -94,8 +94,8 @@ Tree *Graph::BFS(Session &s, int node)
     return bfsTree;
 }
 
-Graph::Graph(Graph &other): edges(other.edges), vecs(other.vecs) {}
 
+Graph::Graph(const Graph &other): edges(other.edges), vecs(other.vecs) {}
 //Tree* Graph::BFS_V2(Session& s, Tree *root) {
 //
 //    Graph *g=s.getGraph();

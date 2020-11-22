@@ -19,12 +19,13 @@ enum TreeType{
 class Session{
 public:
     Session(const std::string& path);
-//    Session(const Session& other);                  //copy constructor
-//    virtual ~Session();                            //destructor
-//    Session(Session&& other);               //move constructor
-//    Session& operator=(const Session &other);    //move Assignment operator
-//    Session& operator=(const Session &&other);  //copy Assignment operator
-//    void clear();
+    Session(const Session& other);
+    virtual ~Session();
+    Session(Session&& other);
+    Session& operator=(const Session &other);
+    void steal(Session &other);
+    Session& operator=(Session &&other);
+    void clear();
 
     void simulate();
     void addAgent(const Agent& agent);
@@ -34,7 +35,7 @@ public:
     int dequeueInfected();
     
     TreeType getTreeType() const;
-    //std::vector<Agent*> getAgents();
+    std::vector<Agent*> getAgents();
     Graph *getGraph();
     std::queue<int> *getInfected(); //just for example
     std::vector<bool> *getDone();
