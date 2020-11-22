@@ -20,10 +20,10 @@ public:
     void clear();
     Tree(const Tree &other);
     virtual Tree *clone() const=0;
-    //Tree(Tree &&other);
-    //void steal(Tree &other);
-    //Tree& operator=(const Tree &t);
-    //Tree& operator=(Tree &&t);
+    Tree(Tree &&other) noexcept;
+    void steal(Tree &other);
+    Tree& operator=(const Tree &t);
+    Tree& operator=(Tree &&t) noexcept;
 
     int getNode() const;
     vector<Tree*> *getChildren();

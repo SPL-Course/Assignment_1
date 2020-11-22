@@ -23,65 +23,48 @@ void Tree::clear()
    }
 }
 
-Tree::Tree(const Tree &other): children(vector<Tree*>()),
-    depth(other.depth), rank(other.rank), node(other.node)
+Tree& Tree::operator=(const Tree &other)
 {
-    int size = other.children.size();
-    for(unsigned int i=0; i < size; i++){
-        children.push_back(other.children.at(i)->clone());
+    if(this != &other){
+        clear();
+        int size = other.children.size();
+        for (unsigned int i = 0; i < size; ++i) {
+            children.push_back(other.children.at(i)->clone());
+        }
     }
+    return *this;
 }
 
-//Tree& Tree::operator=(const Tree &other)
-//{
-//    if(this != &other){
-//        clear();
-////        for(auto& child: other.children)
-////            children.push_back(child);
-//        int size = other.children.size();
-//        for (unsigned int i = 0; i < size; ++i) {
-//            children.push_back(other.children.at(i)->clone());
-//        }
-//    }
-//    return *this;
-//}
+Tree &Tree::operator=(Tree &&other) noexcept {
+    if(this != &other){
+        clear();
+        node = other.node;
+        rank = other.rank;
+        depth = other.depth;
+        children = other.children;
+        steal(other);
+    }
+    return *this;
+}
 
-//Tree::Tree(Tree &&other): children(other.children), depth(other.depth),
-//     rank(other.rank), node(other.node)
-//{
-//    steal(other);
-//}
-
-//Tree &Tree::operator=(Tree &&other)
-//{
-//    if(this != &other){
-//        clear();
-//        node = other.node;
-//        rank = other.rank;
-//        depth = other.depth;
-//        children = other.children;
-//        steal(other);
-//    }
-//    return *this;
-//}
-
-//void Tree::steal(Tree &other)
-//{
-////    for(unsigned int i = 0; i<other.children.size(); i++)
-////        children.at(i) = nullptr;
-//}
+void Tree::steal(Tree &other)
+{
+    for(unsigned int i = 0; i<other.children.size(); i++)
+        children.at(i) = nullptr;
+}
 
 Tree * Tree::createTree(const Session &session, int rootLabel)
 {
+    Tree *p;
     TreeType tType = session.getTreeType();
     if(tType==MaxRank)
-        return new MaxRankTree(rootLabel);
+        p = new MaxRankTree(rootLabel);
     if(tType==Cycle)
-        return new CycleTree(rootLabel,0);
+        p = new CycleTree(rootLabel,0);
     if(tType==Root)
-        return new RootTree(rootLabel);
+        p = new RootTree(rootLabel);
+    return p;
 }
-
 
 void Tree::addChild(const Tree &child)
 {
@@ -97,10 +80,24 @@ int Tree::getNode() const {
     return node;
 }
 
+Tree::Tree(Tree &&other) noexcept: children(move(other.children)), depth(other.depth),
+                          rank(other.rank), node(other.node)
+{
+    steal(other);
+}
+
 vector<Tree *> *Tree::getChildren() {
     return &children;
 }
 
+Tree::Tree(const Tree &other): children(vector<Tree*>()),
+                               depth(other.depth), rank(other.rank), node(other.node)
+{
+    int size = other.children.size();
+    for(unsigned int i=0; i < size; i++){
+        children.push_back(other.children.at(i)->clone());
+    }
+}
 //==========================RootTree=====================================
 
 RootTree::RootTree(int rootLabel):Tree(rootLabel){}
@@ -127,7 +124,7 @@ int CycleTree::traceTree() {// if 0 - root, else go-left currCycle times
     int output = node;
     Tree *curr = this;
     int length = curr->getChildren()->size();
-    for (int i = 0; i < currCycle & length != 0; ++i) {
+    for (int i = 0; i < getCurrCycle() & length != 0; ++i) {
         output = curr->getChildren()->at(i)->getNode();
         curr = curr->getChildren()->at(i);
         length = curr->getChildren()->size();
@@ -164,12 +161,12 @@ int MaxRankTree::traceTree() {
     if(sameRank.size()==1)
         return maxRank->getNode();
     Tree *min=sameRank[0];
-    for (int k = 0; k < sameRank.size(); ++k) {
-        if(min->depth>sameRank.at(k)->depth)
-            min=sameRank.at(k);
-        if(min->depth==sameRank[k]->depth){
-            if(min->getNode()>sameRank[k]->getNode())
-                min=sameRank[k];
+    for (auto & k : sameRank) {
+        if(min->depth>k->depth)
+            min=k;
+        if(min->depth==k->depth){
+            if(min->getNode()>k->getNode())
+                min=k;
         }
     }
     return min->getNode();

@@ -1,7 +1,6 @@
 
 #include "../include/Graph.h"
 #include "../include/Tree.h"
-#include <iostream>
 using namespace std;
 
 Graph:: Graph(vector<vector<int>> matrix): edges(), vecs() {
@@ -20,17 +19,16 @@ Graph:: Graph(vector<vector<int>> matrix): edges(), vecs() {
     }
 }
 
-Graph::Graph(Graph &other): edges(other.edges), vecs(other.vecs) {}
-
-bool Graph::isInfected(int nodeInd)
-{
-    return vecs.at(nodeInd) != 0;
-}
 
 void Graph::infectNode(int nodeInd)
 { // if(!isInfected(nodeInd)
     vecs.at(nodeInd)++;
 }
+
+bool Graph::isInfected(int nodeInd){
+    return vecs[nodeInd] != 0;
+}
+
 
 std::vector<std::vector<int>> Graph::getEdges() const
 {
@@ -59,7 +57,7 @@ bool Graph::infectNextNode(int father)
 {
    bool output = false;
    int fatherEdgesSize = edges.at(father).size();
-   for (int i = 0; i < fatherEdgesSize & !output; ++i) {
+   for (int i = 0; (i < fatherEdgesSize) & !output; ++i) {
         int neighbor = edges.at(father).at(i);
         int status = vecs.at(neighbor);
         if (status == 0) {
@@ -96,13 +94,15 @@ Tree *Graph::BFS(Session &s, int node)
     return bfsTree;
 }
 
+Graph::Graph(Graph &other): edges(other.edges), vecs(other.vecs) {}
+
 //Tree* Graph::BFS_V2(Session& s, Tree *root) {
 //
 //    Graph *g=s.getGraph();
 //    queue<Tree*> nodes; Tree* temp; Tree* child;
 //    vector <bool> visited(g->edges.size());
 //    int tempDepth=0;
-//    nodes.push(root); //root is the address of the root, meaning the adress of node
+//    nodes.push(root); //root is the address of the root, meaning the address of node
 //    while (!nodes.empty()){
 //        int tempRank=0;
 //        temp=nodes.front();

@@ -19,7 +19,7 @@ public:
     void removeNodeEdges(int toRemove);             // Done - checked
     bool infectNextNode(int father);                // Done - checked
     Tree* BFS(Session &s, int node);
-    Tree* BFS_V2(Session& s, Tree *root);
+    //Tree* BFS_V2(Session& s, Tree *root);
     std::vector<int> vecs;
 
 private:

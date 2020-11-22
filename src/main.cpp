@@ -32,8 +32,10 @@ int main(int argc, char** argv) {
 
     Session sess("../include/config1.json"); // To Build Again
     //sess.simulate();
+    cout << argv[0];
+    cout << argc;
 
-    Graph *g = sess.getGraph();
+    //Graph *g = sess.getGraph();
 //    Tree* a = g->BFS(sess,0);
 //    Tree* a = Tree::createTree(sess, 1);
 //    Tree* b = Tree::createTree(sess, 2);
