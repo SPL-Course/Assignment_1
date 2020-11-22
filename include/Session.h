@@ -36,7 +36,7 @@ public:
     TreeType getTreeType() const;
     //std::vector<Agent*> getAgents();
     Graph *getGraph();
-    //std::queue<int> *getInfected(); //just for example
+    std::queue<int> *getInfected(); //just for example
     std::vector<bool> *getDone();
     int counter;
     std::vector<bool>done;

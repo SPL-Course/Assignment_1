@@ -12,7 +12,7 @@ class Tree{
 public:
     Tree(int rootLabel);
     static Tree* createTree(const Session& session, int rootLabel);
-    //virtual int traceTree()=0;
+    virtual int traceTree()=0;
     void addChild(const Tree& child);
     void addChildShallow(Tree* child);
 
@@ -39,7 +39,7 @@ protected:
 class CycleTree: public Tree{
 public:
     CycleTree(int rootLabel, int currCycle);
-    //virtual int traceTree();
+    virtual int traceTree();
     virtual Tree *clone() const;
     virtual ~CycleTree() = default;
     int getCurrCycle() const;
@@ -51,7 +51,7 @@ protected:
 class MaxRankTree: public Tree{
 public:
     MaxRankTree(int rootLabel);   
-    //virtual int traceTree();
+    virtual int traceTree();
     virtual Tree *clone() const;
     virtual ~MaxRankTree() = default;
 };
@@ -59,7 +59,7 @@ public:
 class RootTree: public Tree{
 public:
     RootTree(int rootLabel); 
-    //virtual int traceTree();
+    virtual int traceTree();
     virtual Tree *clone() const;
     virtual ~RootTree() = default;
 };

@@ -44,7 +44,7 @@ Tree::Tree(const Tree &other): children(vector<Tree*>()),
 //        }
 //    }
 //    return *this;
-}
+//}
 
 //Tree::Tree(Tree &&other): children(other.children), depth(other.depth),
 //     rank(other.rank), node(other.node)
@@ -73,15 +73,13 @@ Tree::Tree(const Tree &other): children(vector<Tree*>()),
 
 Tree * Tree::createTree(const Session &session, int rootLabel)
 {
-    Tree* treeP;
     TreeType tType = session.getTreeType();
     if(tType==MaxRank)
-        treeP = new MaxRankTree(rootLabel);
+        return new MaxRankTree(rootLabel);
     if(tType==Cycle)
-        treeP = new CycleTree(rootLabel,0);
+        return new CycleTree(rootLabel,0);
     if(tType==Root)
-        treeP = new RootTree(rootLabel);
-    return treeP;
+        return new RootTree(rootLabel);
 }
 
 
@@ -112,10 +110,10 @@ Tree * RootTree::clone() const
     return (new RootTree(*this));
 }
 
-//int RootTree::traceTree()
-//{
-//    return getNode();
-//}
+int RootTree::traceTree()
+{
+    return node;
+}
 
 //==========================CycleTree=====================================
 CycleTree::CycleTree(int rootLabel, int currCycle):Tree(rootLabel),currCycle(currCycle){}
@@ -125,22 +123,18 @@ Tree * CycleTree::clone() const
     return (new CycleTree(*this));
 }
 
-//int CycleTree::traceTree() {
-//    int output=getNode();
-//    if(getCurrCycle()==0)
-//        return output;
-//    Tree* root = getChildren()->at(0);
-//    Tree* point;
-//    for (int i = 1; i <currCycle; ++i) {
-//        point= root->getChildren()->at(0);
-//        root=point;
-//    }
-//    output=root->getNode();
-////    delete (root);
-////    delete (point);
-//    return output;
-////}
-//}
+int CycleTree::traceTree() {// if 0 - root, else go-left currCycle times
+    int output = node;
+    Tree *curr = this;
+    int length = curr->getChildren()->size();
+    for (int i = 0; i < currCycle & length != 0; ++i) {
+        output = curr->getChildren()->at(i)->getNode();
+        curr = curr->getChildren()->at(i);
+        length = curr->getChildren()->size();
+    }
+    return output;
+}
+
     int CycleTree::getCurrCycle() const {
         return currCycle;
     }
@@ -152,37 +146,31 @@ Tree * CycleTree::clone() const
         return (new MaxRankTree(*this));
     }
 
-//    int MaxRankTree::traceTree() {
-//    Tree *max = this;
-//    for (auto& curr :children) {
-//        if (max->getRank() < curr->getRank())
-//            max = curr;
-//        else if (max->getRank() == curr->getRank()) {
-//             if (curr->getDepth() < max->getDepth())
-//                max = curr;
-//             else if (max->getDepth()== curr->getDepth() &&
-//                          curr->getNode() < max->getNode())
-//                    max = curr;
-//        }
-//    }
-//
-//       return max->getNode();
-//    }
-
-//    int output = getNode();            // root
-//    Tree *max = getChildren()[0];      // first child
-//    int maxChildren = max->getChildren().size();
-//    for (int i = 1; i < getChildren().size() ; ++i) {
-//        Tree* curr = getChildren()[i]; // other children
-//        int currChildren = curr->getChildren().size();
-//        if(maxChildren < currChildren){
-//            max = curr;
-//            maxChildren = currChildren;
-//        }
-//        else if( maxChildren == currChildren){
-//
-//        }
-//    }
-//
-//
-//    return output;
+int MaxRankTree::traceTree() {
+    vector<Tree*> sameRank;
+    Tree *maxRank=this;
+    sameRank.push_back(maxRank);
+//    for (int i = 0; i < this.size; ++i) { //add field size
+    for (int i = 0; i < 50; ++i) {
+        Tree *curr=children.at(i);
+        if(curr->rank>maxRank->rank) {
+            maxRank = curr;
+            sameRank.clear();
+            sameRank.push_back(maxRank);
+        }
+        if(curr->rank==maxRank->rank)
+            sameRank.push_back(curr);
+    }
+    if(sameRank.size()==1)
+        return maxRank->getNode();
+    Tree *min=sameRank[0];
+    for (int k = 0; k < sameRank.size(); ++k) {
+        if(min->depth>sameRank.at(k)->depth)
+            min=sameRank.at(k);
+        if(min->depth==sameRank[k]->depth){
+            if(min->getNode()>sameRank[k]->getNode())
+                min=sameRank[k];
+        }
+    }
+    return min->getNode();
+}

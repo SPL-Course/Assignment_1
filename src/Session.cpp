@@ -94,6 +94,11 @@ TreeType Session::getTreeType() const
     return treeType;
 }
 
+queue<int> * Session::getInfected()
+{
+    return &infectedNode;
+}
+
 
 //Session::Session(const Session &other):
 //   g(vector<vector<int>>()), treeType(other.treeType), agents(), terminated(other.terminated),done(other.done),infectedNode(other.infectedNode),counter(other.counter)
