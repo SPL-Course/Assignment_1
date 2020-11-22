@@ -70,62 +70,45 @@ bool Graph::infectNextNode(int father)
 
 Tree *Graph::BFS(Session &s, int node)
 {
-    Tree *bfsTree = Tree::createTree(s,node)->clone();
-    Tree *currT = bfsTree;
+    Tree *bfsTree = Tree::createTree(s,node);
+    Tree *currT;
+    vector<bool> visited (edges.size(), false);
     Graph *g=s.getGraph();
-    queue<int> nodes;
-    nodes.push(node);
-    while(!nodes.empty()){
-        int curr = nodes.front(); nodes.pop();
-        if(curr != node)
-            currT = Tree::createTree(s, curr);
-        int amountOfNodes = g->getEdges().at(curr).size();
-        for (int i = 0; i < amountOfNodes; ++i) {
-            int neighbor = edges.at(curr).at(i);
-            if(neighbor != node){
-                Tree *child = Tree::createTree(s, neighbor);
-                child->depth = currT->depth + 1;
-                currT->addChildShallow(child);
-                currT->rank++;
-                nodes.push(neighbor);
+    queue<Tree*> nodes;
+    nodes.push(bfsTree);
+    visited.at(node) = true;
+    while(!nodes.empty()) {
+        currT = nodes.front();
+        nodes.pop();
+        int currNode = currT->getNode();
+        if (currNode == node) {
+            int amountOfNodes = g->getEdges().at(node).size();
+            for (int i = 0; i < amountOfNodes; ++i) {
+                int neighbor = edges.at(node).at(i);
+                if (neighbor != node && !visited.at(neighbor)) {
+                    Tree *child = Tree::createTree(s, neighbor);
+                    child->depth = bfsTree->depth + 1;
+                    bfsTree->addChildShallow(child);
+                    visited.at(neighbor) = true;
+                    nodes.push(child);
+                }
+            }
+        }
+
+        else {
+            int amountOfNodes = g->getEdges().at(currNode).size();
+            for (int i = 0; i < amountOfNodes; ++i) {
+                int neighbor = edges.at(currNode).at(i);
+                if (neighbor != node && !visited.at(neighbor)) {
+                    Tree *child = Tree::createTree(s, neighbor);
+                    child->depth = currT->depth + 1;
+                    currT->addChildShallow(child);
+                    currT->rank++;
+                    visited.at(neighbor) = true;
+                    nodes.push(child);
+                }
             }
         }
     }
     return bfsTree;
 }
-
-
-Graph::Graph(const Graph &other): edges(other.edges), vecs(other.vecs) {}
-//Tree* Graph::BFS_V2(Session& s, Tree *root) {
-//
-//    Graph *g=s.getGraph();
-//    queue<Tree*> nodes; Tree* temp; Tree* child;
-//    vector <bool> visited(g->edges.size());
-//    int tempDepth=0;
-//    nodes.push(root); //root is the address of the root, meaning the address of node
-//    while (!nodes.empty()){
-//        int tempRank=0;
-//        temp=nodes.front();
-//        temp->depth=tempDepth;
-//        temp->rank=tempRank;
-//        nodes.pop();
-//        int size = g->getEdges()[temp->getNode()].size();
-//        for (int j = 0; j < size ; ++j) {
-//            temp=nodes.front(); nodes.pop();
-//            visited[temp->getNode()] = true;
-//            for (int j = 0; j < g->edges[temp->getNode()].size(); ++j) {
-//                if (!visited[edges[temp->getNode()][j]]){
-//                    child=Tree::createTree(s,edges[temp->getNode()][j]);
-//                    temp->rank = temp->rank+1; child->depth=temp->depth+1;
-//                    temp->addChild(*child);
-//                    tempRank++;
-//                    nodes.push(child);
-//                    child->depth=tempDepth+1;
-//                    visited[edges[temp->getNode()][j]] = true;
-//                }
-//            }
-//            root->getChildren().push_back(temp);
-//        }
-//    }
-//        return root;
-//}

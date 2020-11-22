@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
     cout << argc;
 
     Graph *g = sess.getGraph();
-//    Tree* a = g->BFS(sess,0);
+    Tree* a = g->BFS(sess,0);
 //    Tree* a = Tree::createTree(sess, 1);
 //    Tree* b = Tree::createTree(sess, 2);
 //    Tree* c = Tree::createTree(sess, 3);

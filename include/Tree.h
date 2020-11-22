@@ -24,6 +24,7 @@ public:
     void steal(Tree &other);
     Tree& operator=(const Tree &t);
     Tree& operator=(Tree &&t) noexcept;
+    int getSize(Tree* root);
 
     int getNode() const;
     vector<Tree*> *getChildren();

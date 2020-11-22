@@ -5,7 +5,7 @@ using namespace std;
  /* changed pointers delete in traceTree Cycle*/
 //==========================Tree=========================
 
-Tree::Tree(int rootLabel): node(rootLabel), children(vector<Tree*>()), rank(0), depth(0) {}
+Tree::Tree(int rootLabel): node(rootLabel), children(vector<Tree*>()), rank(0), depth(0){}
 
 Tree::~Tree()
 {
@@ -27,8 +27,11 @@ Tree& Tree::operator=(const Tree &other)
 {
     if(this != &other){
         clear();
-        int size = other.children.size();
-        for (unsigned int i = 0; i < size; ++i) {
+        node = other.node;
+        rank = other.rank;
+        depth = other.depth;
+        int count = other.children.size();
+        for (unsigned int i = 0; i < count; ++i) {
             children.push_back(other.children.at(i)->clone());
         }
     }
@@ -41,8 +44,8 @@ Tree &Tree::operator=(Tree &&other) noexcept {
         node = other.node;
         rank = other.rank;
         depth = other.depth;
-        int size = other.children.size();
-        for (unsigned int i = 0; i < size; ++i) {
+        int count = other.children.size();
+        for (unsigned int i = 0; i < count; ++i) {
             children.push_back(other.children.at(i)->clone());
         }
         steal(other);
@@ -52,8 +55,8 @@ Tree &Tree::operator=(Tree &&other) noexcept {
 
 void Tree::steal(Tree &other)
 {
-    int size=other.children.size();
-    for(unsigned int i = 0; i<size; i++)
+    int count=other.children.size();
+    for(unsigned int i = 0; i<count; i++)
         children.at(i) = nullptr;
 }
 
@@ -80,7 +83,8 @@ void Tree::addChildShallow(Tree *child)
     children.push_back(child);
 }
 
-int Tree::getNode() const {
+int Tree::getNode() const
+{
     return node;
 }
 
@@ -90,18 +94,35 @@ Tree::Tree(Tree &&other) noexcept: children(move(other.children)), depth(other.d
     steal(other);
 }
 
-vector<Tree *> *Tree::getChildren() {
+vector<Tree *> *Tree::getChildren()
+{
     return &children;
 }
 
 Tree::Tree(const Tree &other): children(vector<Tree*>()),
-                               depth(other.depth), rank(other.rank), node(other.node)
+         depth(other.depth), rank(other.rank), node(other.node)
 {
-    int size = other.children.size();
-    for(unsigned int i=0; i < size; i++){
+    int count = other.children.size();
+    for(unsigned int i=0; i < count; i++){
         children.push_back(other.children.at(i)->clone());
     }
 }
+
+
+int Tree::getSize(Tree *root)
+{
+    queue<Tree*> q;
+    q.push(root);
+    int size = 0;
+    while(!q.empty()){
+        Tree* curr = q.front(); q.pop();
+        for (int i = 0; i < curr->rank; ++i)
+            q.push(curr->getChildren()->at(i));
+        size++;
+    }
+    return size;
+}
+
 //==========================RootTree=====================================
 
 RootTree::RootTree(int rootLabel):Tree(rootLabel){}
@@ -151,8 +172,7 @@ int MaxRankTree::traceTree() {
     vector<Tree*> sameRank;
     Tree *maxRank=this;
     sameRank.push_back(maxRank);
-//    for (int i = 0; i < this.size; ++i) { //add field size
-    for (int i = 0; i < 50; ++i) {
+    for (int i = 0; i <getSize(this) ; ++i) {
         Tree *curr=children.at(i);
         if(curr->rank>maxRank->rank) {
             maxRank = curr;
