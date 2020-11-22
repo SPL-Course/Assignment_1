@@ -12,7 +12,7 @@ class Tree{
 public:
     Tree(int rootLabel);
     static Tree* createTree(const Session& session, int rootLabel);
-    virtual int traceTree()=0;
+    //virtual int traceTree()=0;
     void addChild(const Tree& child);
     void addChildShallow(Tree* child);
 
@@ -20,14 +20,15 @@ public:
     void clear();
     Tree(const Tree &other);
     virtual Tree *clone() const=0;
-    Tree(Tree &&other);
-    void steal(Tree &other);
-    Tree& operator=(const Tree &t);
-    Tree& operator=(Tree &&t);
+    //Tree(Tree &&other);
+    //void steal(Tree &other);
+    //Tree& operator=(const Tree &t);
+    //Tree& operator=(Tree &&t);
 
-    vector<Tree*> *getChildren();
     int getNode() const;
-    int depth; int rank;
+    vector<Tree*> *getChildren();
+    int rank;
+    int depth;
 
 protected:
     int node;
@@ -38,19 +39,19 @@ protected:
 class CycleTree: public Tree{
 public:
     CycleTree(int rootLabel, int currCycle);
-    virtual int traceTree();
+    //virtual int traceTree();
     virtual Tree *clone() const;
     virtual ~CycleTree() = default;
     int getCurrCycle() const;
 
-private:
+protected:
     int currCycle;
 };
 
 class MaxRankTree: public Tree{
 public:
     MaxRankTree(int rootLabel);   
-    virtual int traceTree();
+    //virtual int traceTree();
     virtual Tree *clone() const;
     virtual ~MaxRankTree() = default;
 };
@@ -58,7 +59,7 @@ public:
 class RootTree: public Tree{
 public:
     RootTree(int rootLabel); 
-    virtual int traceTree();
+    //virtual int traceTree();
     virtual Tree *clone() const;
     virtual ~RootTree() = default;
 };
