@@ -109,16 +109,17 @@ Tree::Tree(const Tree &other): children(vector<Tree*>()),
 }
 
 
-int Tree::getSize(Tree *root)
+int Tree::getSize()
 {
     queue<Tree*> q;
-    q.push(root);
+    q.push(this);
     int size = 0;
     while(!q.empty()){
         Tree* curr = q.front(); q.pop();
-        for (int i = 0; i < curr->rank; ++i)
+        int count=curr->getChildren()->size();
+        for (unsigned int i = 0; i < count; ++i)
             q.push(curr->getChildren()->at(i));
-        size++;
+        size= size+1;
     }
     return size;
 }
@@ -172,7 +173,7 @@ int MaxRankTree::traceTree() {
     vector<Tree*> sameRank;
     Tree *maxRank=this;
     sameRank.push_back(maxRank);
-    for (int i = 0; i <getSize(this) ; ++i) {
+    for (int i = 0; i <getSize() ; ++i) {
         Tree *curr=children.at(i);
         if(curr->rank>maxRank->rank) {
             maxRank = curr;

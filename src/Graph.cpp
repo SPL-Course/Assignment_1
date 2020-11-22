@@ -112,3 +112,5 @@ Tree *Graph::BFS(Session &s, int node)
     }
     return bfsTree;
 }
+
+Graph::Graph(const Graph &other) :edges(other.edges), vecs(other.vecs) {}
