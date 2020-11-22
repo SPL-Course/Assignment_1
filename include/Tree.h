@@ -1,67 +1,66 @@
-
 #ifndef TREE_H_
 #define TREE_H_
 
 #include <vector>
-#include "Session.h" // replaced 19.11 21:00
+#include "Session.h"
+/*check if include ok -> else: class Session;*/
 using namespace std;
-//class Session;
 
 class Tree{
-
 /* When infect - notice to do last one rotation (1-->2) */
 
 public:
-    Tree(int rootLabel);              // Constructor (root)
-    void addChild(const Tree& child); // Add node to Tree
-   //void addChild(const Tree &&child);
-    virtual ~Tree();                  // Added - 12/11/20
-    Tree(Tree &other);
-    virtual Tree *clone() const=0;
+    Tree(int rootLabel);
+    static Tree* createTree(const Session& session, int rootLabel);
+    virtual int traceTree()=0;
+    void addChild(const Tree& child);
+    void addChildShallow(Tree* child);
 
-    static Tree* createTree(const Session& session, int rootLabel); // returns a pointer to Tree
-    virtual int traceTree()=0;        // Which node to disconnect?
+    virtual ~Tree();
+    void clear();
+    Tree(const Tree &other);
+    virtual Tree *clone() const=0;
+    Tree(Tree &&other);
+    void steal(Tree &other);
+    Tree& operator=(const Tree &t);
+    Tree& operator=(Tree &&t);
+
+    vector<Tree*> *getChildren();
     int getNode() const;
-    vector<Tree*> getChildren() const;
-    int depth, rank;
+    int depth; int rank;
 
 protected:
-    int node;                         // Tree root
-    std::vector<Tree*> children;      // Pointer's vector to children
+    int node;
+    std::vector<Tree*> children;
 };
 
 
 class CycleTree: public Tree{
 public:
     CycleTree(int rootLabel, int currCycle);
-    virtual int traceTree(); // if 0 - root, else go-left currCycle times
-    virtual Tree *clone() const ;
+    virtual int traceTree();
+    virtual Tree *clone() const;
+    virtual ~CycleTree() = default;
+    int getCurrCycle() const;
 
 private:
-    int currCycle;                    // How many steps to take
+    int currCycle;
 };
 
 class MaxRankTree: public Tree{
-
-/* Next-Node is: 
-    1. Most Children 
-    2. Smallest depth
-    3. Most-Left */
-
 public:
     MaxRankTree(int rootLabel);   
-    virtual int traceTree(); // in loop updating Tree *max
+    virtual int traceTree();
     virtual Tree *clone() const;
+    virtual ~MaxRankTree() = default;
 };
 
-class RootTree: public Tree{     
-
-/* only root of Tree */
-
+class RootTree: public Tree{
 public:
     RootTree(int rootLabel); 
-    virtual int traceTree();  // return relevant tree's getNode();
+    virtual int traceTree();
     virtual Tree *clone() const;
+    virtual ~RootTree() = default;
 };
 
 #endif

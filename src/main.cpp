@@ -31,6 +31,33 @@ int main(int argc, char** argv) {
 
 
     Session sess("../include/config1.json"); // To Build Again
+    //sess.simulate();
+
+    Graph *g = sess.getGraph();
+//    Tree* a = g->BFS(sess,0);
+//    Tree* a = Tree::createTree(sess, 1);
+//    Tree* b = Tree::createTree(sess, 2);
+//    Tree* c = Tree::createTree(sess, 3);
+//    Tree* d = Tree::createTree(sess, 4);
+//    Tree* e = Tree::createTree(sess, 5);
+//    b->addChild(*c);
+//    b->addChildShallow(c);
+//    c->depth=5;
+//    c->addChildShallow(e);
+//    a->addChild(*d);
+//    a->operator=(*b);
+//    *a = *b;
+//    c->addChild(*e);
+
+
+
+//    Agent* a= new Virus(2);
+//    Agent *b = a->clone();
+
+
+    //Tree *t = Tree::createTree(sess, 0);
+//    g->BFS(sess, 0);
+
 
 //    sess.simulate();
 //
