@@ -78,7 +78,7 @@ Tree *Graph::BFS(Session &s, int node)
     while(!nodes.empty()){
         int curr = nodes.front(); nodes.pop();
         if(curr != node)
-            currT = Tree::createTree(s, curr)->clone();
+            currT = Tree::createTree(s, curr);
         int amountOfNodes = g->getEdges().at(curr).size();
         for (int i = 0; i < amountOfNodes; ++i) {
             int neighbor = edges.at(curr).at(i);

@@ -35,8 +35,8 @@ int main(int argc, char** argv) {
     cout << argv[0];
     cout << argc;
 
-    //Graph *g = sess.getGraph();
-//    Tree* a = g->BFS(sess,0);
+    Graph *g = sess.getGraph();
+    Tree* a = g->BFS(sess,0);
 //    Tree* a = Tree::createTree(sess, 1);
 //    Tree* b = Tree::createTree(sess, 2);
 //    Tree* c = Tree::createTree(sess, 3);
@@ -180,7 +180,8 @@ int main(int argc, char** argv) {
 //        infected.push_back(sess.getGraph()->getQueue().front());
 //        sess.getGraph()->getQueue().pop();
 //    }
-//    k["infected"] = infected;
+//    vector<int> k["infected"](sess.getInfected()->size());
+//    k["infected"] = sess.getInfected();
 //    int n = sess.getGraph()->getEdges().size();
 //    vector<vector<int>> graph(n);
 //    for (int k = 0; k < n ; ++k)
