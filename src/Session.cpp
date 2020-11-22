@@ -81,7 +81,7 @@ Graph *Session::getGraph()
 
 void Session::setGraph(const Graph &graph)
 {
-    //g = graph;
+    g = Graph(graph);
 }
 
 std::vector<bool> * Session::getDone()
@@ -150,7 +150,8 @@ Session & Session::operator=(Session &&other)
     return *this;
 }
 
-void Session::clear() {
+void Session::clear()
+{
     int size = agents.size();
     for (unsigned int i = 0; i < size; ++i) {
         if (agents.at(i) != nullptr) {
@@ -158,6 +159,37 @@ void Session::clear() {
             agents.at(i) = nullptr;
         }
     }
+}
+
+std::vector<int> Session::outputInfected()
+{
+    vector<int>output;
+    int count=g.vecs.size();
+    for (unsigned int i = 0; i <count ; ++i) {
+        if(g.vecs.at(i)==2)
+            output.push_back(i);
+    }
+    return output;
+}
+
+std::vector<std::vector<int>> Session::outputGraph()
+{
+    int n = g.getEdges().size();
+    vector<vector<int>> output(n,vector<int>(n,0));
+    for(unsigned int i = 0 ; i < n ; ++i){
+        int in = g.getEdges().at(i).size();
+        for(unsigned int j = 0 ; j < in ; ++j) {
+            int value = g.getEdges().at(i).at(j);
+            output.at(i).at(value) = 1;
+            output.at(value).at(i) = 1;
+        }
+    }
+    return output;
+}
+
+vector<Agent *> Session::getAgents()
+{
+    return agents;
 }
 
 Session::Session(const Session &other):
@@ -169,7 +201,6 @@ Session::Session(const Session &other):
         Agent *newAgent = other.agents[i]->clone();
         agents.push_back(newAgent);
     }
-
 }
 
 Session::Session(Session &&other): g(vector<vector<int>>()) ,treeType(other.treeType), agents(move(other.agents)), terminated(other.terminated),done(other.done),infectedNode(other.infectedNode),counter(other.counter)
@@ -177,21 +208,5 @@ Session::Session(Session &&other): g(vector<vector<int>>()) ,treeType(other.tree
     g=other.g;
     steal(other);
 }
-
-
-vector<Agent *> Session::getAgents()
-{
-    return agents;
-}
-
-
-
-
-
-//std::queue<int> * Session::getInfected()
-//{
-//    return &infectedNode;
-//}
-
 
 

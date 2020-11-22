@@ -37,7 +37,7 @@ int main(int argc, char** argv) {
 
     Graph *g = sess.getGraph();
     Tree* a = g->BFS(sess,0);
-    cout<<"suze:";
+    cout<<"size:";
     cout<<a->getSize()<<endl;
     cout<<a->getChildren()->at(0)->getSize()<<endl;
     cout<<a->getChildren()->at(1)->getSize()<<endl;

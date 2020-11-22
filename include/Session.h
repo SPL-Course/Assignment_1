@@ -39,6 +39,8 @@ public:
     Graph *getGraph();
     std::queue<int> *getInfected(); //just for example
     std::vector<bool> *getDone();
+    std::vector<int> outputInfected();
+    std::vector<std::vector<int>> outputGraph();
     int counter;
     std::vector<bool>done;
 
