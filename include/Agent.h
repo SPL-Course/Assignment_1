@@ -4,7 +4,6 @@
 #include <vector>
 #include <queue>
 #include "Session.h"
-/*check if include ok -> else: class Session;*/
 using namespace std;
 
 class Agent{

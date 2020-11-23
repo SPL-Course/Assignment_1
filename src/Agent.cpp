@@ -1,6 +1,6 @@
 
 #include "../include/Agent.h"
-#include "../include/Tree.h" /*added*/
+#include "../include/Tree.h" // Added
 #include <iostream>
 using namespace std;
 
@@ -13,8 +13,8 @@ Agent::~Agent() {}
 
 Virus::Virus(int nodeInd) : Agent(), nodeInd(nodeInd){}
 
-void Virus::act(Session &session) {
-
+void Virus::act(Session &session)
+{
     if (!session.getDone()->at(session.index)) {
         Graph *graph = session.getGraph();
         int node = this->nodeInd;
@@ -60,14 +60,14 @@ ContactTracer::ContactTracer() : Agent() {}
 
 void ContactTracer::act(Session &session)
 {
-//    if(!session.getInfected()->empty()){
-//        int node=session.dequeueInfected();
-        //Tree *tree=session.getGraph()->BFS(session,node);
-        //int disconnected=tree->traceTree();
-        //session.getGraph()->removeNodeEdges(disconnected);
-//    }
-//    else
-        session.getDone()->at(session.index)=true;
+    if(!session.getInfected()->empty()){
+        int node=session.dequeueInfected();
+        Tree *tree=session.getGraph()->BFS(session,node);
+        int disconnected = tree->traceTree();
+        session.getGraph()->removeNodeEdges(disconnected);
+    }
+    else
+        session.getDone()->at(session.index) = true;
 }
 
 Agent *ContactTracer::clone() const

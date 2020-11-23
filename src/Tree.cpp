@@ -173,28 +173,33 @@ int CycleTree::traceTree() {// if 0 - root, else go-left currCycle times
 int MaxRankTree::traceTree() {
     vector<Tree*> sameRank;
     Tree *maxRank=this;
+    Tree* min;
     sameRank.push_back(maxRank);
-    unsigned int count = getSize();
-    for (unsigned int i = 0; i < count ; ++i) {
-        Tree *curr=children.at(i);
-        if(curr->rank>maxRank->rank) {
-            maxRank = curr;
-            sameRank.clear();
-            sameRank.push_back(maxRank);
+    unsigned int treeSize = getSize();
+    while(treeSize > 0) {
+        unsigned int count = children.size();
+        for (unsigned int i = 0; i < count; ++i) {
+            Tree *curr = children.at(i);
+            if (curr->rank > maxRank->rank) {
+                maxRank = curr;
+                sameRank.clear();
+                sameRank.push_back(maxRank);
+            }
+            if (curr->rank == maxRank->rank)
+                sameRank.push_back(curr);
         }
-        if(curr->rank==maxRank->rank)
-            sameRank.push_back(curr);
-    }
-    if(sameRank.size()==1)
-        return maxRank->getNode();
-    Tree *min=sameRank[0];
-    for (auto & k : sameRank) {
-        if(min->depth>k->depth)
-            min=k;
-        if(min->depth==k->depth){
-            if(min->getNode()>k->getNode())
-                min=k;
+        if (sameRank.size() == 1)
+            return maxRank->getNode();
+        min = sameRank[0];
+        for (auto &k : sameRank) {
+            if (min->depth > k->depth)
+                min = k;
+            if (min->depth == k->depth) {
+                if (min->getNode() > k->getNode())
+                    min = k;
+            }
         }
+        treeSize--;
     }
     return min->getNode();
 }

@@ -7,7 +7,8 @@ using namespace std;
 using namespace nlohmann;
 
 Session::Session(const std::string& path):
-        done(),index(0), g(vector<vector<int>>()),treeType(), agents(), terminated(false),infectedNode()
+   done(),index(0), g(vector<vector<int>>()),treeType(), agents(),
+      terminated(false),infectedNode()
 {
     std::ifstream i(path);
     json j;
@@ -62,9 +63,6 @@ void Session::addAgent(const Agent &agent)
 void Session::enqueueInfected(int node)
 {
     infectedNode.push(node);
-
-//    Virus add(node);
-//    g.getQueue().push(add);
 }
 
 int Session::dequeueInfected()
@@ -72,9 +70,6 @@ int Session::dequeueInfected()
     int output=infectedNode.front();
     infectedNode.pop();
     return output;
-//    int node = g.getQueue().front().nodeInd;
-//    g.getQueue().pop();
-//    return node;
 }
 
 Graph *Session::getGraph()
@@ -164,8 +159,8 @@ void Session::clear()
     }
 }
 
-void Session::makeOutput() {
-
+void Session::makeOutput()
+{
     json k;
     vector<int> outputInfected = this->outputInfected();
     vector<vector<int>> outputGraph = this->outputGraph();
@@ -180,7 +175,7 @@ std::vector<int> Session::outputInfected()
     vector<int>output;
     unsigned int count=g.vecs.size();
     for (unsigned int i = 0; i <count ; ++i) {
-        if(g.vecs.at(i)==2)
+        if(g.vecs.at(i) == 2)
             output.push_back(i);
     }
     return output;
@@ -223,7 +218,8 @@ int Session::toInfect(int father)
 }
 
 Session::Session(const Session &other):
-        done(other.done), index(other.index), g(vector<vector<int>>()), treeType(other.treeType), agents(), terminated(other.terminated),infectedNode(other.infectedNode)
+   done(other.done), index(other.index), g(vector<vector<int>>()), treeType(other.treeType),
+     agents(), terminated(other.terminated), infectedNode(other.infectedNode)
 {
     g = Graph(other.g);
     unsigned count= other.agents.size();
@@ -233,7 +229,9 @@ Session::Session(const Session &other):
     }
 }
 
-Session::Session(Session &&other): done(other.done), index(other.index), g(vector<vector<int>>()) ,treeType(other.treeType), agents(move(other.agents)), terminated(other.terminated),infectedNode(other.infectedNode)
+Session::Session(Session &&other):
+  done(other.done), index(other.index), g(vector<vector<int>>()), treeType(other.treeType),
+    agents(move(other.agents)), terminated(other.terminated),infectedNode(other.infectedNode)
 {
     g = other.g;
     steal(other);

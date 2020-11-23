@@ -1,8 +1,7 @@
 
-/*---Start---*/
 #include "../include/Session.h"
-#include "../include/Agent.h" // Added 15:31 13/11/20
-#include "../include/Tree.h" // Added 15:31 13/11/20
+#include "../include/Agent.h" // Added
+#include "../include/Tree.h" // Added
 #include <iostream>
 using namespace std;
 using namespace nlohmann;
@@ -20,7 +19,8 @@ int main(int argc, char** argv) {
     sess.simulate();
     return 0;
 }
-/*------------Free Checks Main-------*/
+/*---------Free Checks Main-------*/
+
 //    ifstream  i("../include/config1.json");
 //    json j;
 //    i >> j;

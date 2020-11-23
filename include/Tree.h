@@ -3,12 +3,9 @@
 
 #include <vector>
 #include "Session.h"
-/*check if include ok -> else: class Session;*/
 using namespace std;
 
 class Tree{
-/* When infect - notice to do last one rotation (1-->2) */
-
 public:
     Tree(int rootLabel);
     static Tree* createTree(const Session& session, int rootLabel);
