@@ -19,7 +19,7 @@ int main(int argc, char** argv) {
     Session sess(argv[1]);
     sess.simulate();
     return 0;
-
+}
 /*------------Free Checks Main-------*/
 //    ifstream  i("../include/config1.json");
 //    json j;
@@ -232,5 +232,5 @@ int main(int argc, char** argv) {
 //        cout << "" << endl;
 //    }
 
-}
+
 /*----------------------------------*/

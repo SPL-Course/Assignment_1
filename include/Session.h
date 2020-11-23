@@ -39,11 +39,12 @@ public:
     Graph *getGraph();
     std::queue<int> *getInfected(); //just for example
     std::vector<bool> *getDone();
+    int toInfect(int node);
     std::vector<int> outputInfected();
     std::vector<std::vector<int>> outputGraph();
     void makeOutput();
     std::vector<bool>done;
-    int counter;
+    int index;
 
 private:
     Graph g;
@@ -53,7 +54,6 @@ private:
 protected:
     bool terminated;
     std::queue<int>infectedNode;
-
 };
 
 #endif

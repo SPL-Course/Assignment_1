@@ -7,7 +7,7 @@ using namespace std;
 using namespace nlohmann;
 
 Session::Session(const std::string& path):
-        done(),counter(0), g(vector<vector<int>>()),treeType(), agents(), terminated(false),infectedNode()
+        done(),index(0), g(vector<vector<int>>()),treeType(), agents(), terminated(false),infectedNode()
 {
     std::ifstream i(path);
     json j;
@@ -22,7 +22,7 @@ Session::Session(const std::string& path):
 
     infectedNode = queue<int>();
 
-    for(pair<string, int> pair : j["agents"]){
+    for(pair<string, int> pair : j["agents"]) {
         if (pair.second == -1)
             agents.push_back(new ContactTracer());
         else
@@ -32,21 +32,24 @@ Session::Session(const std::string& path):
 }
 
 void Session::simulate() {
-//    while (!terminated) {
-//        unsigned int count = agents.size();
-//        for (unsigned int i = 0; i < count; ++i) {
-//            agents.at(i)->act(*this);
-//            counter++;
-//        }
-//        bool check = true;
-//        count = done.size();
-//        for (unsigned int k = 0; k < count && check; ++k) {
-//            if (!done.at(k))
-//                check = false;
-//        }
-//        if (check)
-//            terminated = true;
-//    }
+
+    while (!terminated) {
+
+        int count = agents.size();
+        for (int i = 0; i < count; ++i) {
+            index = i;
+            (agents.at(i))->act(*this);
+        }
+
+        bool check = true;
+        count = done.size();
+        for (int k = 0; k < count && check; ++k) {
+            if (!done.at(k))
+                check = false;
+        }
+        if (check)
+            terminated = true;
+    }
     makeOutput();
 }
 
@@ -120,7 +123,7 @@ Session & Session::operator=(const Session &other) {
         terminated = other.terminated;
         done = other.done;
         infectedNode = other.infectedNode;
-        counter = other.counter;
+        index = other.index;
     }
     unsigned int size=other.agents.size();
     for (unsigned int i = 0; i <size ; ++i) {
@@ -139,7 +142,7 @@ Session & Session::operator=(Session &&other)
         terminated=other.terminated;
         done=other.done;
         infectedNode=other.infectedNode;
-        counter=other.counter;
+        index=other.index;
         unsigned int count=agents.size();
         for (unsigned int i = 0; i <count ; ++i) {
             Agent *newAgent = other.agents[i]->clone();
@@ -203,8 +206,24 @@ vector<Agent *> Session::getAgents()
     return agents;
 }
 
+int Session::toInfect(int father)
+{
+    bool output = false;
+    int toInfect = -1;
+    unsigned int fatherEdgesSize = getGraph()->getEdges().at(father).size();
+    for (unsigned int i = 0; (i < fatherEdgesSize) & !output; ++i) {
+        int neighbor = getGraph()->getEdges().at(father).at(i);
+        int status = getGraph()->vecs.at(neighbor);
+        if (status == 0) {
+            toInfect = neighbor;
+            output = true;
+        }
+    }
+    return toInfect;
+}
+
 Session::Session(const Session &other):
-        done(other.done), counter(other.counter), g(vector<vector<int>>()), treeType(other.treeType), agents(), terminated(other.terminated),infectedNode(other.infectedNode)
+        done(other.done), index(other.index), g(vector<vector<int>>()), treeType(other.treeType), agents(), terminated(other.terminated),infectedNode(other.infectedNode)
 {
     g = Graph(other.g);
     unsigned count= other.agents.size();
@@ -214,7 +233,7 @@ Session::Session(const Session &other):
     }
 }
 
-Session::Session(Session &&other): done(other.done), counter(other.counter), g(vector<vector<int>>()) ,treeType(other.treeType), agents(move(other.agents)), terminated(other.terminated),infectedNode(other.infectedNode)
+Session::Session(Session &&other): done(other.done), index(other.index), g(vector<vector<int>>()) ,treeType(other.treeType), agents(move(other.agents)), terminated(other.terminated),infectedNode(other.infectedNode)
 {
     g = other.g;
     steal(other);
