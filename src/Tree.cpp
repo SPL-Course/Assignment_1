@@ -111,9 +111,9 @@ Tree::Tree(const Tree &other): children(vector<Tree*>()),
 
 int Tree::getSize()
 {
+    int size = 0;
     queue<Tree*> q;
     q.push(this);
-    int size = 0;
     while(!q.empty()){
         Tree* curr = q.front(); q.pop();
         int count=curr->getChildren()->size();

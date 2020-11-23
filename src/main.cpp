@@ -36,11 +36,69 @@ int main(int argc, char** argv) {
 //    cout << argc;
 
     Graph *g = sess.getGraph();
-    Tree* a = g->BFS(sess,0);
-    cout<<"size:";
-    cout<<a->getSize()<<endl;
-    cout<<a->getChildren()->at(0)->getSize()<<endl;
-    cout<<a->getChildren()->at(1)->getSize()<<endl;
+    Tree* a = g->BFS(sess,3);
+    cout <<"node: " << a->getNode() << " size: " << a->getSize() << " rank: " << a->rank << " depth: " << a-> depth <<endl;
+    for(unsigned int i =0 ; i < a->getChildren()->size() ; ++i){
+        Tree *child = a->getChildren()->at(i);
+        cout <<"node: " << child->getNode() << " size: " << child->getSize() << " rank: " << child->rank << " depth: " << child-> depth << " ";
+        for(unsigned int j =0 ; j < child->getChildren()->size() ;++j) {
+            Tree *child1 = child->getChildren()->at(j);
+            cout << " -----> node: " << child1->getNode() << " size: " << child1->getSize() << " rank: " << child1->rank<< " depth: " << child1->depth << " ";
+            for(unsigned int K =0 ; K < child1->getChildren()->size() ;++K) {
+
+                Tree *child2 = child1->getChildren()->at(K);
+                cout << " =====> node: " << child2->getNode() << " size: " << child2->getSize() << " rank: "
+                     << child2->rank << " depth: " << child2->depth << " ";
+            }
+        }
+        cout << endl;
+    }
+
+//    sess.getGraph()->removeNodeEdges(0);
+//    vector<vector<int>> matrix2 = sess.outputGraph();
+//    sess.getGraph()->removeNodeEdges(1);
+//    vector<vector<int>> matrix3 = sess.outputGraph();
+//    sess.getGraph()->removeNodeEdges(2);
+//    vector<vector<int>> matrix4 = sess.outputGraph();
+//    sess.getGraph()->removeNodeEdges(3);
+//    vector<vector<int>> matrix5 = sess.outputGraph();
+//    sess.getGraph()->removeNodeEdges(25);
+//
+//    //======Print_Output_Graph========//
+//
+//    Graph h1(matrix3);
+//    sess.setGraph(h1);
+//    for (int k = 0; k < matrix3.size(); ++k) {
+//        cout << k << ": " << "{ ";
+//        for (int i = 0; i < matrix3.at(k).size(); ++i) {
+//            cout << matrix3.at(k).at(i);
+//            if(i != matrix3.at(k).size() - 1)
+//                cout<< " ";
+//        }
+//        cout << " }" << endl;
+//    }
+//
+//    cout << endl;
+//
+//    Graph h(matrix5);
+//    sess.setGraph(h);
+//    vector<vector<int>> matrix = sess.outputGraph();
+//    for (int k = 0; k < matrix.size(); ++k) {
+//        cout << k << ": " << "{ ";
+//        for (int i = 0; i < matrix.at(k).size(); ++i) {
+//            cout << matrix.at(k).at(i);
+//            if(i != matrix.at(k).size() - 1)
+//                cout<< " ";
+//        }
+//        cout << " }" << endl;
+//    }
+
+
+//===============================//
+//    cout<<"size:";
+//    cout<<a->getSize()<<endl;
+//    cout<<a->getChildren()->at(0)->getSize()<<endl;
+//    cout<<a->getChildren()->at(1)->getSize()<<endl;
 //    Tree* a = Tree::createTree(sess, 1);
 //    Tree* b = Tree::createTree(sess, 2);
 //    Tree* c = Tree::createTree(sess, 3);

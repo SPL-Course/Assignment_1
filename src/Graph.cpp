@@ -89,6 +89,7 @@ Tree *Graph::BFS(Session &s, int node)
                     Tree *child = Tree::createTree(s, neighbor);
                     child->depth = bfsTree->depth + 1;
                     bfsTree->addChildShallow(child);
+                    bfsTree->rank++;
                     visited.at(neighbor) = true;
                     nodes.push(child);
                 }
