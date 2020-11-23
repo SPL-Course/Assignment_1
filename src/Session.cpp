@@ -7,8 +7,7 @@ using namespace std;
 using namespace nlohmann;
 
 Session::Session(const std::string& path):
-     g(vector<vector<int>>()),treeType(),
-     agents(), terminated(false),done(),infectedNode(),counter(0)
+        done(),counter(0), g(vector<vector<int>>()),treeType(), agents(), terminated(false),infectedNode()
 {
     std::ifstream i(path);
     json j;
@@ -33,21 +32,22 @@ Session::Session(const std::string& path):
 }
 
 void Session::simulate() {
-    while (!terminated) {
-        int count = agents.size();
-        for (int i = 0; i < count; ++i) {
-            agents.at(i)->act(*this);
-            counter++;
-        }
-        bool check = true;
-        count = done.size();
-        for (int k = 0; k < count && check; ++k) {
-            if (!done.at(k))
-                check = false;
-        }
-        if (check)
-            terminated = true;
-    }
+//    while (!terminated) {
+//        unsigned int count = agents.size();
+//        for (unsigned int i = 0; i < count; ++i) {
+//            agents.at(i)->act(*this);
+//            counter++;
+//        }
+//        bool check = true;
+//        count = done.size();
+//        for (unsigned int k = 0; k < count && check; ++k) {
+//            if (!done.at(k))
+//                check = false;
+//        }
+//        if (check)
+//            terminated = true;
+//    }
+    makeOutput();
 }
 
 void Session::addAgent(const Agent &agent)
@@ -106,7 +106,7 @@ Session::~Session()
 
 void Session::steal(Session &other)
 {
-    int size=agents.size();
+    unsigned int size=agents.size();
     for (unsigned int i = 0; i < size; ++i) {
         agents.at(i) = nullptr;
     }
@@ -122,7 +122,7 @@ Session & Session::operator=(const Session &other) {
         infectedNode = other.infectedNode;
         counter = other.counter;
     }
-    int size=other.agents.size();
+    unsigned int size=other.agents.size();
     for (unsigned int i = 0; i <size ; ++i) {
         Agent *newAgent = other.agents[i]->clone();
         agents.push_back(newAgent);
@@ -140,7 +140,7 @@ Session & Session::operator=(Session &&other)
         done=other.done;
         infectedNode=other.infectedNode;
         counter=other.counter;
-        int count=agents.size();
+        unsigned int count=agents.size();
         for (unsigned int i = 0; i <count ; ++i) {
             Agent *newAgent = other.agents[i]->clone();
             agents.push_back(newAgent);
@@ -152,7 +152,7 @@ Session & Session::operator=(Session &&other)
 
 void Session::clear()
 {
-    int size = agents.size();
+    unsigned int size = agents.size();
     for (unsigned int i = 0; i < size; ++i) {
         if (agents.at(i) != nullptr) {
             delete (agents.at(i));
@@ -161,10 +161,21 @@ void Session::clear()
     }
 }
 
+void Session::makeOutput() {
+
+    json k;
+    vector<int> outputInfected = this->outputInfected();
+    vector<vector<int>> outputGraph = this->outputGraph();
+    k["b_graph"] = outputGraph;
+    k["a_infected"] = outputInfected;
+    ofstream  u("output.json");
+    u << k;
+}
+
 std::vector<int> Session::outputInfected()
 {
     vector<int>output;
-    int count=g.vecs.size();
+    unsigned int count=g.vecs.size();
     for (unsigned int i = 0; i <count ; ++i) {
         if(g.vecs.at(i)==2)
             output.push_back(i);
@@ -174,10 +185,10 @@ std::vector<int> Session::outputInfected()
 
 std::vector<std::vector<int>> Session::outputGraph()
 {
-    int n = g.getEdges().size();
+    unsigned int n = g.getEdges().size();
     vector<vector<int>> output(n,vector<int>(n,0));
     for(unsigned int i = 0 ; i < n ; ++i){
-        int in = g.getEdges().at(i).size();
+        unsigned int in = g.getEdges().at(i).size();
         for(unsigned int j = 0 ; j < in ; ++j) {
             int value = g.getEdges().at(i).at(j);
             output.at(i).at(value) = 1;
@@ -193,20 +204,22 @@ vector<Agent *> Session::getAgents()
 }
 
 Session::Session(const Session &other):
-        g(vector<vector<int>>()), treeType(other.treeType), agents(), terminated(other.terminated),done(other.done),infectedNode(other.infectedNode),counter(other.counter)
+        done(other.done), counter(other.counter), g(vector<vector<int>>()), treeType(other.treeType), agents(), terminated(other.terminated),infectedNode(other.infectedNode)
 {
-    g=Graph(other.g);
-    int count= other.agents.size();
+    g = Graph(other.g);
+    unsigned count= other.agents.size();
     for (unsigned int i = 0; i < count ; ++i) {
         Agent *newAgent = other.agents[i]->clone();
         agents.push_back(newAgent);
     }
 }
 
-Session::Session(Session &&other): g(vector<vector<int>>()) ,treeType(other.treeType), agents(move(other.agents)), terminated(other.terminated),done(other.done),infectedNode(other.infectedNode),counter(other.counter)
+Session::Session(Session &&other): done(other.done), counter(other.counter), g(vector<vector<int>>()) ,treeType(other.treeType), agents(move(other.agents)), terminated(other.terminated),infectedNode(other.infectedNode)
 {
-    g=other.g;
+    g = other.g;
     steal(other);
 }
+
+
 
 

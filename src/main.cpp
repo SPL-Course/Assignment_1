@@ -4,7 +4,6 @@
 #include "../include/Agent.h" // Added 15:31 13/11/20
 #include "../include/Tree.h" // Added 15:31 13/11/20
 #include <iostream>
-#include <fstream>
 using namespace std;
 using namespace nlohmann;
 
@@ -12,47 +11,47 @@ int main(int argc, char** argv) {
 
 /*------------Original Main-------*/
 
-//    if (argc != 2) {
-//        cout << "usage cTrace <config_path>" << endl;
-//        return 0;
-//    }
-//
-//    Session sess(argv[1]);
-//    sess.simulate();
-//    return 0;
-//}
+    if (argc != 2) {
+        cout << "usage cTrace <config_path>" << endl;
+        return 0;
+    }
+
+    Session sess(argv[1]);
+    sess.simulate();
+    return 0;
 
 /*------------Free Checks Main-------*/
-    ifstream  i("../include/config1.json");
-    json j;
-    i >> j;
+//    ifstream  i("../include/config1.json");
+//    json j;
+//    i >> j;
 
-    //cout << j<< endl;
+//    cout << j<< endl;
 
 
-    Session sess("../include/config1.json"); // To Build Again
+//    Session sess("../include/config1.json"); // To Build Again
+//    sess.simulate();
     //sess.simulate();
 //    cout << argv[0];
 //    cout << argc;
 
-    Graph *g = sess.getGraph();
-    Tree* a = g->BFS(sess,3);
-    cout <<"node: " << a->getNode() << " size: " << a->getSize() << " rank: " << a->rank << " depth: " << a-> depth <<endl;
-    for(unsigned int i =0 ; i < a->getChildren()->size() ; ++i){
-        Tree *child = a->getChildren()->at(i);
-        cout <<"node: " << child->getNode() << " size: " << child->getSize() << " rank: " << child->rank << " depth: " << child-> depth << " ";
-        for(unsigned int j =0 ; j < child->getChildren()->size() ;++j) {
-            Tree *child1 = child->getChildren()->at(j);
-            cout << " -----> node: " << child1->getNode() << " size: " << child1->getSize() << " rank: " << child1->rank<< " depth: " << child1->depth << " ";
-            for(unsigned int K =0 ; K < child1->getChildren()->size() ;++K) {
-
-                Tree *child2 = child1->getChildren()->at(K);
-                cout << " =====> node: " << child2->getNode() << " size: " << child2->getSize() << " rank: "
-                     << child2->rank << " depth: " << child2->depth << " ";
-            }
-        }
-        cout << endl;
-    }
+//    Graph *g = sess.getGraph();
+//    Tree* a = g->BFS(sess,3);
+//    cout <<"node: " << a->getNode() << " size: " << a->getSize() << " rank: " << a->rank << " depth: " << a-> depth <<endl;
+//    for(unsigned int i =0 ; i < a->getChildren()->size() ; ++i){
+//        Tree *child = a->getChildren()->at(i);
+//        cout <<"node: " << child->getNode() << " size: " << child->getSize() << " rank: " << child->rank << " depth: " << child-> depth << " ";
+//        for(unsigned int j =0 ; j < child->getChildren()->size() ;++j) {
+//            Tree *child1 = child->getChildren()->at(j);
+//            cout << " -----> node: " << child1->getNode() << " size: " << child1->getSize() << " rank: " << child1->rank<< " depth: " << child1->depth << " ";
+//            for(unsigned int K =0 ; K < child1->getChildren()->size() ;++K) {
+//
+//                Tree *child2 = child1->getChildren()->at(K);
+//                cout << " =====> node: " << child2->getNode() << " size: " << child2->getSize() << " rank: "
+//                     << child2->rank << " depth: " << child2->depth << " ";
+//            }
+//        }
+//        cout << endl;
+//    }
 
 //    sess.getGraph()->removeNodeEdges(0);
 //    vector<vector<int>> matrix2 = sess.outputGraph();
@@ -233,25 +232,5 @@ int main(int argc, char** argv) {
 //        cout << "" << endl;
 //    }
 
-    //sess.simulate();
-
-    //// == output_Try == ////
-//    json k;
-//    vector<int> infected;
-//    while(!sess.getGraph()->getQueue().empty()){
-//        infected.push_back(sess.getGraph()->getQueue().front());
-//        sess.getGraph()->getQueue().pop();
-//    }
-//    vector<int> k["infected"](sess.getInfected()->size());
-//    k["infected"] = sess.getInfected();
-//    int n = sess.getGraph()->getEdges().size();
-//    vector<vector<int>> graph(n);
-//    for (int k = 0; k < n ; ++k)
-//        for (int k = 0; k < sess.getGraph()->getEdges()[k].size(); ++k) {}
-//    k["graph"] = graph;
-//    ofstream  u("output.json");
-//    k >> u;
-
-    return 0;
 }
 /*----------------------------------*/

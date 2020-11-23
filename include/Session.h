@@ -41,8 +41,9 @@ public:
     std::vector<bool> *getDone();
     std::vector<int> outputInfected();
     std::vector<std::vector<int>> outputGraph();
-    int counter;
+    void makeOutput();
     std::vector<bool>done;
+    int counter;
 
 private:
     Graph g;
