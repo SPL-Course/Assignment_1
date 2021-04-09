@@ -277,7 +277,7 @@ void MaxRankTree::updateSameRankBFS(vector<Tree*> *sameRank)
 /*----------- Getters -----------*/
 
 int& MaxRankTree::getCurrCycle()
-{  /* helps CycleTree traceTree */
+{  /* helps traceTree of CycleTree*/
     int fakeC = -1;
     int* p = &fakeC;
     return *p;
