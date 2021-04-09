@@ -15,42 +15,55 @@ enum TreeType{
 
 class Session{
 public:
+    /*--Constructor--*/
     Session(const std::string& path);
-    Session(const Session& other);
-    virtual ~Session();
-    Session(Session&& other);
-    Session& operator=(const Session &other);
-    void steal(Session &other);
-    Session& operator=(Session &&other);
-    void clear();
 
+    /*--Rule Of 5--*/
+    virtual ~Session();                          // destructor
+    Session(const Session& other);               // copy constructor
+    Session& operator=(const Session &other);    // copy assignment operator
+    Session(Session&& other);                    // move constructor
+    Session& operator=(Session &&other);         // move assignment operator
+
+    void clear();
+    void steal(Session &other);
+
+    /*--Given Functions--*/
     void simulate();
     void addAgent(const Agent& agent);
-    void setGraph(const Graph& graph);
-    
     void enqueueInfected(int);
     int dequeueInfected();
-    
-    TreeType getTreeType() const;
-    std::vector<Agent*> getAgents();
+    void setGraph(const Graph& graph);
+
+    /*--Help Functions--*/
+    int toInfect(int node);                      // next virus-free neighbor
+
+    /*--Output Functions--*/
+    void makeOutput();                           // using below makers for final output
+    std::vector<int> makeInfected();
+    std::vector<std::vector<int>> makeGraph();
+
+    /*-----Getters-------*/
     Graph *getGraph();
-    std::queue<int> *getInfected(); //just for example
+    TreeType getTreeType() const;
+    std::vector<Agent*> *getAgents();
+    int& getIndex();
+    int& getSimulateCycle();
     std::vector<bool> *getDone();
-    int toInfect(int node);
-    std::vector<int> outputInfected();
-    std::vector<std::vector<int>> outputGraph();
-    void makeOutput();
-    std::vector<bool>done;
-    int index;
+    std::queue<int> *getInfected();
+    std::vector<bool> *getViruses();
 
 private:
     Graph g;
     TreeType treeType;
     std::vector<Agent*> agents;
 
-protected:
-    bool terminated;
-    std::queue<int>infectedNode;
+    bool terminated;                           // Simulate stop condition
+    int index;                                 // agent's place in agents and done
+    int simulateCycle;                         // helps CycleTree traceTree
+    std::vector<bool>done;                     // agent acts unless done
+    std::queue<int>infectedNode;               // helps Contact Tracer act
+    std::vector<bool>viruses;                  // true for non Virus-free nodes
 };
 
 #endif

@@ -8,26 +8,43 @@ using namespace std;
 
 class Agent{
 public:
+    /*--Constructor--*/
     Agent();
+
+    virtual ~Agent();                                 // default destructor
+    virtual Agent* clone() const = 0;                 // deep-copy
+
+    /*--Given Functions--*/
     virtual void act(Session& session)=0;
-    virtual Agent* clone() const = 0;
-    virtual ~Agent();
 };
 
 class ContactTracer: public Agent{
 public:
+    /*--Constructor--*/
     ContactTracer();
+
+    virtual ~ContactTracer() = default;               // uses Agent destructor
+    virtual Agent* clone() const;                     // deep-copy
+
+    /*--Given Functions--*/
     virtual void act(Session& session);
-    virtual Agent* clone() const;
-    virtual ~ContactTracer() = default;
 };
 
 class Virus: public Agent{
 public:
-    Virus (int nodeInd) ;
+    /*--Constructor--*/
+    Virus (int nodeInd);
+
+    virtual ~Virus() = default;                       // uses Agent destructor
+    virtual Agent* clone() const;                     // deep-copy
+
+    /*--Given Functions--*/
     virtual void act(Session& session);
-    virtual Agent* clone() const;
-    virtual ~Virus() = default;
+
+    /*--Help Functions--*/
+    void fullyInfect(Session& session, int toInfect); // update relevant fields
+
+    /*-----Getters------*/
     int getNodeInd() const;
 
 private:

@@ -7,59 +7,95 @@ using namespace std;
 
 class Tree{
 public:
+    /*--Constructor--*/
     Tree(int rootLabel);
-    static Tree* createTree(const Session& session, int rootLabel);
-    virtual int traceTree()=0;
-    void addChild(const Tree& child);
-    void addChildShallow(Tree* child);
 
-    virtual ~Tree();
+    /*--Rule Of 5--*/
+    virtual ~Tree();                    // destructor
+    Tree(const Tree &other);            // copy constructor
+    Tree& operator=(const Tree &other); // copy assignment operator
+    Tree(Tree &&other);                 // move constructor
+    Tree& operator=(Tree &&other);      // move assignment operator
+
     void clear();
-    Tree(const Tree &other);
-    virtual Tree *clone() const=0;
-    Tree(Tree &&other);
     void steal(Tree &other);
-    Tree& operator=(const Tree &t);
-    Tree& operator=(Tree &&t);
-    int getSize();
+    virtual Tree *clone() const = 0;
 
+    /*--Given Functions--*/
+    static Tree* createTree(const Session& session, int rootLabel);
+    void addChild(const Tree& child);
+    void addChild(Tree* child);         // adds child pointer
+    virtual int traceTree() = 0;
+
+    /*--Help Functions--*/
+    void updateDepthsBFS();             // depth field updater
+    void updateCyclesBFS(int cycle);    // currCycle field updater
+
+    /*-----Getters------*/
     int getNode() const;
+    int &getRank();
+    int &getDepth();
     vector<Tree*> *getChildren();
-    int rank;
+    virtual int& getCurrCycle() = 0;
+
+private:
+    int node;
+    int rank;                           // tree children's size
     int depth;
 
 protected:
-    int node;
     std::vector<Tree*> children;
 };
 
-
 class CycleTree: public Tree{
 public:
+    /*--Constructor--*/
     CycleTree(int rootLabel, int currCycle);
-    virtual int traceTree();
-    virtual Tree *clone() const;
-    virtual ~CycleTree() = default;
-    int getCurrCycle() const;
 
-protected:
+    virtual ~CycleTree() = default;                   // uses Tree destructor
+    virtual Tree *clone() const;                      // deep-copy
+
+    /*--Given Functions--*/
+    virtual int traceTree();
+
+    /*-----Getters------*/
+    virtual int& getCurrCycle();
+
+private:
     int currCycle;
 };
 
 class MaxRankTree: public Tree{
 public:
-    MaxRankTree(int rootLabel);   
+    /*--Constructor--*/
+    MaxRankTree(int rootLabel);
+
+    virtual ~MaxRankTree() = default;                 // uses Tree destructor
+    virtual Tree *clone() const;                      // deep-copy
+
+    /*--Given Functions--*/
     virtual int traceTree();
-    virtual Tree *clone() const;
-    virtual ~MaxRankTree() = default;
+
+    /*--Help Functions--*/
+    void updateSameRankBFS(vector<Tree*> *sameRank);  // first comparison
+
+    /*-----Getters------*/
+    virtual int& getCurrCycle();                      // for CycleTree traceTree
 };
 
 class RootTree: public Tree{
 public:
-    RootTree(int rootLabel); 
+    /*--Constructor--*/
+    RootTree(int rootLabel);                          // constructor
+
+    virtual ~RootTree() = default;                    // uses Tree destructor
+    virtual Tree *clone() const;                      // deep-copy
+
+    /*--Given Functions--*/
     virtual int traceTree();
-    virtual Tree *clone() const;
-    virtual ~RootTree() = default;
+
+    /*-----Getters------*/
+    virtual int& getCurrCycle();                      // for CycleTree traceTree
 };
 
 #endif
