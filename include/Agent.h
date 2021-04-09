@@ -42,7 +42,7 @@ public:
     virtual void act(Session& session);
 
     /*--Help Functions--*/
-    void fullyInfect(Session& session, int toInfect); // updates relevant fields
+    void fullyInfect(Session& session, int toInfect); // update relevant fields
 
     /*-----Getters------*/
     int getNodeInd() const;
